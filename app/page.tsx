@@ -155,6 +155,32 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 <div style={{ height: "40px" }} />
 
 
+        {/* ── PLATFORM ENGINES ── */}
+        <div className="sec sec-dark">
+          <div className="eyebrow" style={{ color: "#C8922A" }}>The architecture</div>
+          <div className="sec-h2-light" style={{ marginBottom: "24px" }}>One platform. Ten engines. One economy.</div>
+          <div className="engines-grid">
+            {engines.map((eng, i) => (
+              <div
+                key={i}
+                className={`engine-card${flipped[i] ? " flipped" : ""}`}
+                onClick={() => setFlipped(prev => prev.map((v, j) => j === i ? !v : v))}
+              >
+                <div className="engine-inner">
+                  <div className="engine-front">
+                    <div className="engine-num">0{i + 1}</div>
+                    <div className="engine-title">{eng.title}</div>
+                    <div className="engine-hint">Click to read more →</div>
+                  </div>
+                  <div className="engine-back">
+                    <div className="engine-back-text">{eng.back}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ── WHO BENEFITS ── */}
         <div className="sec">
           <div className="eyebrow">Built for every stakeholder in Sudan's recovery</div>
