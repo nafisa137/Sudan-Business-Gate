@@ -44,6 +44,7 @@ export default function Platform() {
         <Link href="/impact" className="nl">Impact</Link>
         <Link href="/about" className="nl">About</Link>
         <Link href="/register" className="nl">Register</Link>
+        <Link href="/budget" className="nl active">Budget</Link>
       </div>
 
 {/* ── PARALLAX IMAGE ── */}
@@ -189,9 +190,21 @@ export default function Platform() {
     human bridge that makes the entire ecosystem accessible to every Sudanese business.
   </div>
 
+  <style jsx>{`
+    .support-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .support-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px rgba(0,0,0,.12);
+    }
+  `}</style>
+
   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "14px", marginBottom: "24px" }}>
 
-    <div style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px" }}>
+    <div className="support-card" style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px", boxShadow: "0 13px 24px rgba(0,0,0,.08)", borderColor: "#C8922A" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, color: "#0B1A3D", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
         <i className="ti ti-phone-call" style={{ fontSize: "16px", color: "#C8922A" }} aria-hidden="true" />
         Grassroots onboarding
@@ -203,7 +216,7 @@ export default function Platform() {
       </div>
     </div>
 
-    <div style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px" }}>
+    <div className="support-card" style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px", boxShadow: "0 13px 24px rgba(0,0,0,.08)", borderColor: "#C8922A" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, color: "#0B1A3D", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
         <i className="ti ti-file-check" style={{ fontSize: "16px", color: "#C8922A" }} aria-hidden="true" />
         Document recovery support
@@ -215,7 +228,7 @@ export default function Platform() {
       </div>
     </div>
 
-    <div style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px" }}>
+    <div className="support-card" style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px", boxShadow: "0 13px 24px rgba(0,0,0,.08)", borderColor: "#C8922A" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, color: "#0B1A3D", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
         <i className="ti ti-world" style={{ fontSize: "16px", color: "#C8922A" }} aria-hidden="true" />
         Procurement by phone
@@ -227,7 +240,7 @@ export default function Platform() {
       </div>
     </div>
 
-    <div style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px" }}>
+    <div className="support-card" style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px", boxShadow: "0 13px 24px rgba(0,0,0,.08)", borderColor: "#C8922A" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, color: "#0B1A3D", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
         <i className="ti ti-broadcast" style={{ fontSize: "16px", color: "#C8922A" }} aria-hidden="true" />
         Regulatory information
@@ -239,7 +252,7 @@ export default function Platform() {
       </div>
     </div>
 
-    <div style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px" }}>
+    <div className="support-card" style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "20px", boxShadow: "0 13px 24px rgba(0,0,0,.08)", borderColor: "#C8922A" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, color: "#0B1A3D", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
         <i className="ti ti-map-pin" style={{ fontSize: "16px", color: "#C8922A" }} aria-hidden="true" />
         Mobile registration clinics

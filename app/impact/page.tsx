@@ -12,13 +12,12 @@ export default function Impact() {
             </div>
 
  
-            <Link href="/" className="nl">Home</Link>
-            <Link href="/platform" className="nl">Platform</Link>
-            <Link href="/roadmap" className="nl">Roadmap</Link>
-            <Link href="/impact" className="nl">Impact</Link>
-            <Link href="/about" className="nl">About</Link>
-            <Link href="/register" className="nl">Register</Link>
-
+         <Link href="/" className="nl">Home</Link>
+        <Link href="/platform" className="nl">Platform</Link>
+        <Link href="/roadmap" className="nl">Roadmap</Link>
+        <Link href="/impact" className="nl">Impact</Link>
+        <Link href="/about" className="nl">About</Link>
+        <Link href="/register" className="nl">Register</Link>
           </div>
 
   <div className="sec-dark">

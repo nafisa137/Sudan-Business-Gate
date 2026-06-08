@@ -10,7 +10,7 @@ body{font-family:var(--font-sans)}
 .logo-tri{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:9px solid #0B1A3D}
 .nl{font-size:10px;color:rgba(255,255,255,.45)}
 .nl.active{color:#fff;font-weight:500}
-.ncta{background:#C8922A;color:#fff;font-size:10px;font-weight:500;padding:4px 12px;border-radius:6px}
+.ncta{background:#C8922A;color:#fff;font-size:10px;font-weight:500;padding:4px 13px;border-radius:6px}
 .sec{padding:36px 32px}
 .sec-alt{background:#F7F8FA;padding:36px 32px}
 .sec-dark{background:#0B1A3D;padding:36px 32px}
@@ -43,7 +43,7 @@ body{font-family:var(--font-sans)}
 .tier-item{font-size:10px;color:#4A5568;padding:2px 0;display:flex;gap:5px;align-items:flex-start;line-height:1.4}
 .tier-item::before{content:'✓';color:#2A9D6E;font-size:9px;margin-top:1px;flex-shrink:0}
 .tech-row{display:flex;gap:8px;flex-direction:column}
-.tech-layer{border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.tech-layer{border-radius:8px;padding:13px 16px;display:flex;align-items:center;gap:13px}
 .layer1{background:#E1F5EE;border:.5px solid #9FE1CB}
 .layer2{background:#E6F1FB;border:.5px solid #B5D4F4}
 .layer3{background:#EEEDFE;border:.5px solid #CECBF6}
@@ -54,7 +54,7 @@ body{font-family:var(--font-sans)}
 .tech-name{font-size:11px;font-weight:600;color:#0B1A3D}
 .tech-desc{font-size:10px;color:#4A5568}
 .flow-row{display:flex;align-items:center;gap:0}
-.flow-box{background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 12px;text-align:center;flex:1}
+.flow-box{background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 13px;text-align:center;flex:1}
 .flow-title{font-size:10px;font-weight:600;color:#fff;margin-bottom:3px}
 .flow-sub{font-size:9px;color:rgba(255,255,255,.45)}
 .flow-arrow{font-size:14px;color:#C8922A;padding:0 6px;flex-shrink:0}
