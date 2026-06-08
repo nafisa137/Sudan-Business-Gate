@@ -1,9 +1,8 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import "./globals.css";
 import Link from "next/link";
-
-import { useEffect, useState } from "react";
+import { Space } from "lucide-react";
 export default function Home() {
   const budgetCategories = [
     { label: "Technical Infrastructure", amount: 68000, share: "29.8%", color: "#185FA5" },
@@ -16,6 +15,76 @@ export default function Home() {
     { label: "Research & Intelligence", amount: 7800, share: "3.4%", color: "#6B21A8" },
     
   ];
+
+
+const crises = [
+  {
+    title: "Sudan's Economy Has a Visibility Problem",
+    body: `Thousands of Sudanese businesses are still operating. They have workers, equipment, supply chains, and capacity. 
+           But to the outside world — to international buyers, development banks, and UN agencies — they are effectively invisible.
+           The war didn't just destroy alfatih. It destroyed the records.`,
+    image: "/media/alfatih.jpg",
+
+  },
+  {
+    title: "What Was Lost",
+        body: `Trade registries. Tax ledgers. Chamber of commerce archives. Municipal licensing records. Across Sudan's commercial corridors, the physical documentation that proves a business exists — and that it can be trusted — has been damaged, displaced, or destroyed.
+          Without that paper trail, there is no digital trail. And without a digital trail, there is no access to international finance, procurement contracts, or development funding.`,
+        image: "/media/chalange.jpg",
+    },
+  {
+    title: "The Cost of Invisibility",
+    body: `International organizations want to source locally. It is cheaper, faster, and more impactful. But their compliance rules are non-negotiable. Anti-money laundering protocols. Sanctions screening. Beneficial ownership verification. If a supplier cannot be verified, they cannot be contracted — regardless of their actual capability.
+           The result? Between 60% and 85% of humanitarian and reconstruction spending leaves Sudan entirely. It flows to suppliers in neighboring countries while Sudanese businesses — fully capable of delivering — watch from the outside.
+           This is not a preference. It is a systems failure.`,
+image: "/media/b1.jpg",
+  },
+  {
+    title: "The Real Challenge",
+    body: `This is not primarily a technology problem. It is not even purely a documentation problem.
+It is an institutional coordination problem.
+Sudan's private sector needs a trusted, neutral, verifiable bridge between what exists on the ground and what international institutions require on paper. Until that bridge is built, capital will continue to bypass the domestic economy — and recovery will remain out of reach.`,
+image: "/media/bu.jpg",
+  }
+];
+
+const [activeCard, setActiveCard] = useState(0);
+
+const nextCard = () => {
+  setActiveCard((prev) => (prev + 1) % crises.length);
+};
+
+
+const engines=[
+  {title:"One Platform. Ten Engines. One Economy!",back:`The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.`},
+  {title:"Not ten systems just One.",back:`Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.
+When a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.`},
+
+];
+
+useEffect(() => {
+  const grid = document.getElementById("cards");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  engines.forEach((e) => {
+    const wrap = document.createElement("div");
+    wrap.className = "card-wrap";
+    wrap.innerHTML = `<div class="card-inner">
+      <div class="card-face">
+        <div class="card-title">${e.title}</div>
+        <div class="hint"><i class="ti ti-rotate-clockwise" style="font-size:12px" aria-hidden="true"></i> tap to read</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-title-back">${e.title}</div>
+        <div class="card-body">${e.back}</div>
+        <div class="hint-back">↩ tap to close</div>
+      </div>
+    </div>`;
+    wrap.addEventListener("click", () => wrap.classList.toggle("flipped"));
+    grid.appendChild(wrap);
+  });
+}, []);
 
   return (
     <main>
@@ -37,164 +106,154 @@ export default function Home() {
         {/* ── HERO ── */}
         <div className="hero">
           <div className="hero-grid"></div>
-          <div className="hero-h1">Sudan's sovereign<br />digital <em>business</em><br />infrastructure</div>
+          <div className="hero-h1">SUDAN BUSINESS GATE (SBG)<br /> <em style = {{fontSize: '20px'}}>A Recommendation for a National Digital Transformation Programme and Private Sector Economic Infrastructure </em></div>
           <div className="hero-sub">
-            Rebuilding commercial trust, restoring market access, and reconnecting
-            Sudan's private sector to global capital — through one unified digital platform.
+This memorandum presents a formal proposal to establish the Sudan Business Gate (SBG) as the official digital transformation programme and unified operating infrastructure of the Sudanese Businessmen and Employers Federation (SBEF). 
+Designed as a comprehensive, modern business ecosystem, the proposed programme is intended to modernize, integrate, and scale the entirety of SBEF’s statutory functions, member services, data networks,
+ and institutional communications
+ into a single, high-performance digital environment.
           </div>
-          <div className="hero-btns">
-            <span className="btn-wf-gold">Register your business</span>
-            <span className="btn-wf-outline">View the prospectus →</span>
-          </div>
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hs-num">25,000+</div>
-              <div className="hs-label">Enterprise records<br />within 12 months</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hs-num">$40M+</div>
-              <div className="hs-label">International contracts<br />matched by Year 2</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hs-num">$228K</div>
-              <div className="hs-label">Total capital<br />requirement</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hs-num">Month 6</div>
-              <div className="hs-label">Full operational<br />self-sufficiency</div>
-            </div>
-          </div>
-        </div>
 
-        {/* ── THE PROBLEM ── */}
-        <div className="sec sec-alt">
+</div>
+
+ <div className="sec sec-alt">
           <div className="eyebrow">The problem</div>
           <div className="sec-h2">Sudan's private sector is<br />effectively invisible to the world</div>
           <div className="sec-sub">
             Three interlocking crises have severed the informational bridge between
             Sudanese businesses and international capital.
           </div>
-          <div className="crisis-grid">
-            <div className="crisis-card">
-              <div className="crisis-num">01</div>
-              <div className="crisis-title">Registry destruction</div>
-              <div className="crisis-body">
-                Physical commercial registries, tax ledgers, and chamber records have been
-                lost or destroyed — leaving surviving businesses without verifiable credentials.
-              </div>
-            </div>
-            <div className="crisis-card">
-              <div className="crisis-num">02</div>
-              <div className="crisis-title">Procurement bypass</div>
-              <div className="crisis-body">
-                International organizations cannot verify Sudanese suppliers under AML/CTF
-                rules, so they route procurement through external regional hubs instead.
-              </div>
-              <div className="crisis-stat">60–85% of reconstruction spending leaks out</div>
-            </div>
-            <div className="crisis-card">
-              <div className="crisis-num">03</div>
-              <div className="crisis-title">Structural trust gap</div>
-              <div className="crisis-body">
-                The barrier is not institutional preference — it is a structural information
-                asymmetry. Without a trusted verification bridge, the formal market risks
-                total dilution.
-              </div>
-            </div>
-          </div>
-        </div>
+<div className="crisis-slider">
+  <div
+    className="crisis-card"
+    onClick={nextCard}
+     style={{
+    backgroundImage: `url(${crises[activeCard]?.image || "/media/default.jpg"})`,
+  }}
+  >
+    <div className="crisis-title">
+      {crises[activeCard].title}
+    </div>
 
-        {/* ── THE SOLUTION ── */}
-        <div className="sec sec-dark">
-          <div className="solution-center">
-            <div className="eyebrow" style={{ color: "#C8922A", textAlign: "center" }}>The solution</div>
-            <div className="sec-h2-light" style={{ textAlign: "center" }}>
-              A unified sovereign ecosystem<br />for Sudan's entire private sector
-            </div>
-            <div className="sec-sub-light" style={{ margin: "0 auto 24px", textAlign: "center" }}>
-              SBG integrates 10 components into one platform — from digital federation
-              management to government and institutional integration.
-            </div>
-          </div>
-          <div className="sol-grid">
-            <div className="sol-card">
-              <div className="sol-num">01</div>
-              <div className="sol-title">Digital Federation Platform</div>
-              <div className="sol-body">SBEF administration, centralized member database, and regional chamber compliance.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">02</div>
-              <div className="sol-title">National Business Directory</div>
-              <div className="sol-body">Public ledger of operating enterprises, searchable by sector, location, and capacity.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">03</div>
-              <div className="sol-title">Business Verification System</div>
-              <div className="sol-body">3-tier compliance engine: Silver → Gold → Platinum — trusted by DFIs and UN agencies.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">04</div>
-              <div className="sol-title">Procurement & Market Access</div>
-              <div className="sol-body">Automated matching of international tenders to verified local suppliers via API links.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">05</div>
-              <div className="sol-title">Research & Intelligence Centre</div>
-              <div className="sol-body">5-person analytical team generating ground-truth market data for recovery planning.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">06</div>
-              <div className="sol-title">National Business Support Centre</div>
-              <div className="sol-body">Multi-lingual call centre providing agent-assisted registration and SME onboarding.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">07</div>
-              <div className="sol-title">Events & Community Platform</div>
-              <div className="sol-body">Trade exhibitions, sector meetings, training sessions, and institutional trade missions.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">08</div>
-              <div className="sol-title">Advocacy & Member Services</div>
-              <div className="sol-body">Policy distribution, legal consultations, trade dispute reporting, and governance elections.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">09</div>
-              <div className="sol-title">Data & Analytics Infrastructure</div>
-              <div className="sol-body">Real-time dashboards, operational indicators, and compliance summaries for stakeholders.</div>
-            </div>
-            <div className="sol-card">
-              <div className="sol-num">10</div>
-              <div className="sol-title">Gov & Institutional Integration</div>
-              <div className="sol-body">Secure API layer connecting SBG to the Central Bank, customs, ministries, and DFIs.</div>
-            </div>
-          </div>
-        </div>
+    <div className="crisis-body">
+      {crises[activeCard].body}
+    </div>
 
-        {/* ── KPIs ── */}
-        <div className="sec sec-dark" style={{ paddingTop: "0", paddingBottom: "40px" }}>
-          <div className="eyebrow" style={{ color: "#C8922A", marginBottom: "16px" }}>Key performance targets</div>
-          <div className="kpi-grid">
-            <div className="kpi-card"><div className="kpi-num">25K+</div><div className="kpi-label">Enterprise records within 12 months</div></div>
-            <div className="kpi-card"><div className="kpi-num">$40M</div><div className="kpi-label">International contracts matched by Year 2</div></div>
-            <div className="kpi-card"><div className="kpi-num">150%+</div><div className="kpi-label">Self-sufficiency index by Month 12</div></div>
-            <div className="kpi-card"><div className="kpi-num">18</div><div className="kpi-label">States fully onboarded within 6 months</div></div>
-            <div className="kpi-card"><div className="kpi-num">30%</div><div className="kpi-label">Businesses progressing Silver → Gold in Year 1</div></div>
-            <div className="kpi-card"><div className="kpi-num">Month 6</div><div className="kpi-label">Break-even & full operational self-sufficiency</div></div>
-          </div>
-        </div>
+    <div className="crisis-stat">
+      continue →
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<div className="hero">
+  <div className="hero-grid"></div>
+
+  <div className="hero-tag">
+    <div className="hero-dot"></div>
+    Institutional Proposal · Khartoum, Sudan · 2026
+  </div>
+
+  <div className="hero-h1">
+    SUDAN BUSINESS GATE <em>(SBG)</em><br />
+    <span style={{ fontSize: "20px", fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>
+      A National Digital Transformation Programme<br />
+      for Private Sector Economic Infrastructure
+    </span>
+  </div>
+
+  <div className="hero-sub">
+    A formal proposal to establish SBG as the official digital operating infrastructure
+    of the Sudanese Businessmen and Employers Federation (SBEF) — modernizing member
+    services, rebuilding commercial registry data, and reconnecting Sudanese enterprises
+    with international capital, development finance, and multilateral procurement networks.
+  </div>
+
+  <div className="hero-btns">
+    <a href="#" className="btn-wf-gold">Register your business</a>
+    <a href="#" className="btn-wf-outline">View the prospectus →</a>
+  </div>
+
+  <div className="hero-stats">
+    <div className="hero-stat">
+      <div className="hs-num">25,000+</div>
+      <div className="hs-label">Enterprise records<br />within 12 months</div>
+    </div>
+    <div className="hero-stat">
+      <div className="hs-num">$40M+</div>
+      <div className="hs-label">International contracts<br />matched by Year 2</div>
+    </div>
+    <div className="hero-stat">
+      <div className="hs-num">7%</div>
+      <div className="hs-label">SBEF institutional<br />contribution</div>
+    </div>
+    <div className="hero-stat">
+      <div className="hs-num">Month 6</div>
+      <div className="hs-label">Full operational<br />self-sufficiency</div>
+    </div>
+  </div>
+</div>
+
+
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/home3.jpg')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
+
+<div className="grid" id="cards"></div>
+
+
+
+<Space height={40} />
+
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/home3.jpg')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
 
         {/* ── WHO BENEFITS ── */}
         <div className="sec">
-          <div className="eyebrow">Who benefits</div>
-          <div className="sec-h2">Built for every stakeholder</div>
-          <div className="sec-sub">SBG serves four distinct audiences with tailored pathways and features.</div>
+          <div className="eyebrow">Built for every stakeholder in Sudan's recovery</div>
+          <div className="sec-sub">SBG is not a single-purpose tool. It is a shared infrastructure — designed so that every participant in Sudan's economic recovery finds a direct, practical reason to engage.</div>
           <div className="stake-grid">
             <div className="stake-card">
               <div className="stake-icon" style={{ background: "#E6F1FB", color: "#185FA5" }}>
                 <i className="ti ti-chart-bar" aria-hidden="true"></i>
               </div>
-              <div className="stake-title">Investors</div>
-              <div className="stake-body">BOT financial model, KPIs, self-sufficiency path, full risk matrix, and capital recovery schedule.</div>
+              <div className="stake-title">Sudanese business owners</div>
+              <div className="stake-body">You are still here. You still have capacity, workers, and supply chains. What you are missing is visibility and a credential the world will trust.
+SBG gives you a verified digital identity, free registration in Year 1, access to international tenders matched to your sector, and a call centre that works even without stable internet.</div>
               <div className="stake-link">View financials →</div>
             </div>
             <div className="stake-card">
@@ -223,34 +282,102 @@ export default function Home() {
             </div>
           </div>
         </div>
+{/* ── CAPITAL STRUCTURE ── */}
+<div className="sec sec-alt">
+  <div className="eyebrow">Capital structure</div>
+  <div className="sec-h2">A structure built on accountability, not dependency</div>
+  <div className="sec-sub">
+    SBG is not a grant programme. It is a structured commercial investment with defined
+    ownership, defined risk allocation, and a defined exit — designed so that Sudan's
+    institutions end up owning everything.
+  </div>
 
-        {/* ── CAPITAL STRUCTURE ── */}
-        <div className="sec sec-alt">
-          <div className="eyebrow">Capital structure</div>
-          <div className="sec-h2">Public-Private Partnership — BOT model</div>
-          <div className="sec-sub">
-            A-PR contributes 93% of capital and assumes full technical risk. SBEF provides
-            regulatory backing and 7% of funding. All assets transfer to SBEF at Month 36.
-          </div>
-          <div style={{ display: "flex", gap: "12px", marginBottom: "24px", flexWrap: "wrap" }}>
-            <div style={{ flex: 1, minWidth: "160px", background: "#0B1A3D", borderRadius: "10px", padding: "16px" }}>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,.5)", marginBottom: "4px" }}>A-PR contribution (93%)</div>
-              <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8922A" }}>$212,040</div>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,.35)", marginTop: "4px" }}>Technical execution + full risk</div>
-            </div>
-            <div style={{ flex: 1, minWidth: "160px", background: "#0B1A3D", borderRadius: "10px", padding: "16px" }}>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,.5)", marginBottom: "4px" }}>SBEF contribution (7%)</div>
-              <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8922A" }}>$15,960</div>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,.35)", marginTop: "4px" }}>Regulatory backing + governance</div>
-            </div>
-            <div style={{ flex: 1, minWidth: "160px", background: "#EAF3DE", border: ".5px solid #C0DD97", borderRadius: "10px", padding: "16px" }}>
-              <div style={{ fontSize: "10px", color: "#3B6D11", marginBottom: "4px" }}>Total capital requirement</div>
-              <div style={{ fontSize: "22px", fontWeight: 700, color: "#3B6D11" }}>$228,000</div>
-              <div style={{ fontSize: "10px", color: "#3B6D11", opacity: .7, marginTop: "4px" }}>Break-even projected Month 6</div>
-            </div>
-          </div>
+  {/* ── BOT EXPLANATION ── */}
+  <div style={{ marginBottom: "28px" }}>
+    <div style={{ fontSize: "13px", fontWeight: 500, color: "#0B1A3D", marginBottom: "8px" }}>
+      The Build-Operate-Transfer model
+    </div>
+    <div style={{ fontSize: "13px", color: "#6B7280", lineHeight: 1.75, maxWidth: "620px" }}>
+      A-PR builds it, operates it, recovers its capital from platform revenue, then hands
+      it over — completely and permanently — to SBEF. No ongoing dependency. No licensing
+      fees. No foreign ownership of national data.
+    </div>
+  </div>
+
+  {/* ── THREE CAPITAL CARDS ── */}
+  <div style={{ display: "flex", gap: "12px", marginBottom: "28px", flexWrap: "wrap" }}>
+    <div style={{ flex: 1, minWidth: "160px", background: "#0B1A3D", borderRadius: "10px", padding: "16px" }}>
+      <div style={{ fontSize: "10px", color: "rgba(255,255,255,.5)", marginBottom: "4px" }}>
+        A-PR contribution (93%)
+      </div>
+      <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8922A" }}>$212,040</div>
+      <div style={{ fontSize: "10px", color: "rgba(255,255,255,.35)", marginTop: "4px" }}>
+        Technical execution + full execution risk
+      </div>
+    </div>
+    <div style={{ flex: 1, minWidth: "160px", background: "#0B1A3D", borderRadius: "10px", padding: "16px" }}>
+      <div style={{ fontSize: "10px", color: "rgba(255,255,255,.5)", marginBottom: "4px" }}>
+        SBEF contribution (7%)
+      </div>
+      <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8922A" }}>$15,960</div>
+      <div style={{ fontSize: "10px", color: "rgba(255,255,255,.35)", marginTop: "4px" }}>
+        Regulatory authority + institutional governance
+      </div>
+    </div>
+    <div style={{ flex: 1, minWidth: "160px", background: "#EAF3DE", border: ".5px solid #C0DD97", borderRadius: "10px", padding: "16px" }}>
+      <div style={{ fontSize: "10px", color: "#3B6D11", marginBottom: "4px" }}>
+        Total capital requirement
+      </div>
+      <div style={{ fontSize: "22px", fontWeight: 700, color: "#3B6D11" }}>$228,000</div>
+      <div style={{ fontSize: "10px", color: "#3B6D11", opacity: .7, marginTop: "4px" }}>
+        Full platform — not just a website
+      </div>
+    </div>
+  </div>
+
+  {/* ── WHAT $228K FUNDS ── */}
+  <div style={{ background: "#F8F7F4", borderRadius: "10px", padding: "20px", marginBottom: "28px" }}>
+    <div style={{ fontSize: "12px", fontWeight: 600, color: "#0B1A3D", marginBottom: "12px", letterSpacing: ".04em" }}>
+      WHAT $228,000 FUNDS
+    </div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+      {[
+        "Multi-region cloud infrastructure (Egypt)",
+        "18-state chamber rollout",
+        "5-person research & intelligence centre",
+        "National multilingual call centre",
+        "Odoo ERP integration",
+        "Progressive Web App + USSD interface",
+        "Full verification compliance engine",
+        "Joint Governance Board setup",
+      ].map((item, i) => (
+        <div key={i} style={{
+          fontSize: "12px", color: "#374151",
+          background: "#fff", border: ".5px solid #E5E7EB",
+          borderRadius: "6px", padding: "6px 12px"
+        }}>
+          {item}
         </div>
+      ))}
+    </div>
+  </div>
 
+  {/* ── PATH TO SELF-SUFFICIENCY ── */}
+  <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+    <div style={{ flex: 1, minWidth: "150px", borderLeft: "2px solid #C8922A", paddingLeft: "12px" }}>
+      <div style={{ fontSize: "20px", fontWeight: 700, color: "#0B1A3D" }}>Month 6</div>
+      <div style={{ fontSize: "12px", color: "#6B7280", marginTop: "2px" }}>Full operational self-sufficiency reached</div>
+    </div>
+    <div style={{ flex: 1, minWidth: "150px", borderLeft: "2px solid #C8922A", paddingLeft: "12px" }}>
+      <div style={{ fontSize: "20px", fontWeight: 700, color: "#0B1A3D" }}>150%+</div>
+      <div style={{ fontSize: "12px", color: "#6B7280", marginTop: "2px" }}>Revenue vs. operating costs by Month 12</div>
+    </div>
+    <div style={{ flex: 1, minWidth: "150px", borderLeft: "2px solid #C8922A", paddingLeft: "12px" }}>
+      <div style={{ fontSize: "20px", fontWeight: 700, color: "#0B1A3D" }}>Month 36</div>
+      <div style={{ fontSize: "12px", color: "#6B7280", marginTop: "2px" }}>All assets, data & revenue transfer to SBEF</div>
+    </div>
+  </div>
+</div>
         {/* ── BUDGET BREAKDOWN ── */}
         <div className="sec sec-dark">
           <div className="eyebrow" style={{ color: "#C8922A" }}>Budget breakdown</div>
