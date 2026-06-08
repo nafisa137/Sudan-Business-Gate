@@ -1,9 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./globals.css";
 import Link from "next/link";
-import { Space } from "lucide-react";
+import Image from "next/image";
+
+
+import { useEffect, useRef } from "react";
+
+
+
 export default function Home() {
+  // ── static data (no hooks) ──────────────────────────────────────────
   const budgetCategories = [
     { label: "Technical Infrastructure", amount: 68000, share: "29.8%", color: "#185FA5" },
     { label: "Institutional Rollout", amount: 47100, share: "20.7%", color: "#0B1A3D" },
@@ -13,79 +20,83 @@ export default function Home() {
     { label: "Business Support Centre", amount: 18500, share: "8.1%", color: "#0F6E56" },
     { label: "Project Management", amount: 10000, share: "4.4%", color: "#185FA5" },
     { label: "Research & Intelligence", amount: 7800, share: "3.4%", color: "#6B21A8" },
-    
   ];
 
-
-const crises = [
-  {
-    title: "Sudan's Economy Has a Visibility Problem",
-    body: `Thousands of Sudanese businesses are still operating. They have workers, equipment, supply chains, and capacity. 
-           But to the outside world — to international buyers, development banks, and UN agencies — they are effectively invisible.
-           The war didn't just destroy alfatih. It destroyed the records.`,
-    image: "/media/alfatih.jpg",
-
-  },
-  {
-    title: "What Was Lost",
-        body: `Trade registries. Tax ledgers. Chamber of commerce archives. Municipal licensing records. Across Sudan's commercial corridors, the physical documentation that proves a business exists — and that it can be trusted — has been damaged, displaced, or destroyed.
-          Without that paper trail, there is no digital trail. And without a digital trail, there is no access to international finance, procurement contracts, or development funding.`,
-        image: "/media/chalange.jpg",
+  const crises = [
+    {
+      title: "Sudan's Economy Has a Visibility Problem",
+      body: `Thousands of Sudanese businesses are still operating. They have workers, equipment, supply chains, and capacity. 
+             But to the outside world — to international buyers, development banks, and UN agencies — they are effectively invisible.
+             The war didn't just destroy alfatih. It destroyed the records.`,
+      image: "/media/alfatih.webp",
     },
-  {
-    title: "The Cost of Invisibility",
-    body: `International organizations want to source locally. It is cheaper, faster, and more impactful. But their compliance rules are non-negotiable. Anti-money laundering protocols. Sanctions screening. Beneficial ownership verification. If a supplier cannot be verified, they cannot be contracted — regardless of their actual capability.
-           The result? Between 60% and 85% of humanitarian and reconstruction spending leaves Sudan entirely. It flows to suppliers in neighboring countries while Sudanese businesses — fully capable of delivering — watch from the outside.
-           This is not a preference. It is a systems failure.`,
-image: "/media/b1.jpg",
-  },
-  {
-    title: "The Real Challenge",
-    body: `This is not primarily a technology problem. It is not even purely a documentation problem.
+    {
+      title: "What Was Lost",
+      body: `Trade registries. Tax ledgers. Chamber of commerce archives. Municipal licensing records. Across Sudan's commercial corridors, the physical documentation that proves a business exists — and that it can be trusted — has been damaged, displaced, or destroyed.
+             Without that paper trail, there is no digital trail. And without a digital trail, there is no access to international finance, procurement contracts, or development funding.`,
+      image: "/media/chalange.webp",
+    },
+    {
+      title: "The Cost of Invisibility",
+      body: `International organizations want to source locally. It is cheaper, faster, and more impactful. But their compliance rules are non-negotiable. Anti-money laundering protocols. Sanctions screening. Beneficial ownership verification. If a supplier cannot be verified, they cannot be contracted — regardless of their actual capability.
+             The result? Between 60% and 85% of humanitarian and reconstruction spending leaves Sudan entirely. It flows to suppliers in neighboring countries while Sudanese businesses — fully capable of delivering — watch from the outside.
+             This is not a preference. It is a systems failure.`,
+      image: "/media/b1.webp",
+    },
+    {
+      title: "The Real Challenge",
+      body: `This is not primarily a technology problem. It is not even purely a documentation problem.
 It is an institutional coordination problem.
 Sudan's private sector needs a trusted, neutral, verifiable bridge between what exists on the ground and what international institutions require on paper. Until that bridge is built, capital will continue to bypass the domestic economy — and recovery will remain out of reach.`,
-image: "/media/bu.jpg",
-  }
-];
+      image: "/media/bu.webp",
+    },
+  ];
 
-const [activeCard, setActiveCard] = useState(0);
+  const engines = [
+    { title: "One Platform. Ten Engines. One Economy!", back: `The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.` },
+    { title: "Not ten systems just One.", back: `Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.\nWhen a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.` },
+  ];
 
-const nextCard = () => {
-  setActiveCard((prev) => (prev + 1) % crises.length);
-};
+  // ── hooks (must all be together, after data, before return) ─────────
+  const [activeCard, setActiveCard] = useState(0);
+  const [flipped, setFlipped] = useState<number | null>(null);
 
+  const nextCard = () => setActiveCard((prev) => (prev + 1) % crises.length);
+  const toggle = (i: number) => setFlipped(flipped === i ? null : i);
 
-const engines=[
-  {title:"One Platform. Ten Engines. One Economy!",back:`The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.`},
-  {title:"Not ten systems just One.",back:`Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.
-When a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.`},
+function ParallaxImage({ src }: { src: string }) {
+  const ref = useRef<HTMLDivElement>(null);
 
-];
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-useEffect(() => {
-  const grid = document.getElementById("cards");
-  if (!grid) return;
-  grid.innerHTML = "";
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const offset = rect.top * 0.25; // 0.25 = parallax strength
+      el.style.transform = `translateY(${offset}px)`;
+    };
 
-  engines.forEach((e) => {
-    const wrap = document.createElement("div");
-    wrap.className = "card-wrap";
-    wrap.innerHTML = `<div class="card-inner">
-      <div class="card-face">
-        <div class="card-title">${e.title}</div>
-        <div class="hint"><i class="ti ti-rotate-clockwise" style="font-size:12px" aria-hidden="true"></i> tap to read</div>
-      </div>
-      <div class="card-face card-back">
-        <div class="card-title-back">${e.title}</div>
-        <div class="card-body">${e.back}</div>
-        <div class="hint-back">↩ tap to close</div>
-      </div>
-    </div>`;
-    wrap.addEventListener("click", () => wrap.classList.toggle("flipped"));
-    grid.appendChild(wrap);
-  });
-}, []);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
+  return (
+    <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
+      <div
+        ref={ref}
+        style={{
+          backgroundImage: `url('${src}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "100%",
+          height: "130%",        // taller than container so movement has room
+          willChange: "transform",
+        }}
+      />
+    </div>
+  );
+}
   return (
     <main>
       <div className="nav-wf">
@@ -128,7 +139,7 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
     className="crisis-card"
     onClick={nextCard}
      style={{
-    backgroundImage: `url(${crises[activeCard]?.image || "/media/default.jpg"})`,
+    backgroundImage: `url(${crises[activeCard]?.image || "/media/default.webp"})`,
   }}
   >
     <div className="crisis-title">
@@ -149,98 +160,35 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 
 
 
-<div className="hero">
-  <div className="hero-grid"></div>
-
-  <div className="hero-tag">
-    <div className="hero-dot"></div>
-    Institutional Proposal · Khartoum, Sudan · 2026
-  </div>
-
-  <div className="hero-h1">
-    SUDAN BUSINESS GATE <em>(SBG)</em><br />
-    <span style={{ fontSize: "20px", fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>
-      A National Digital Transformation Programme<br />
-      for Private Sector Economic Infrastructure
-    </span>
-  </div>
-
-  <div className="hero-sub">
-    A formal proposal to establish SBG as the official digital operating infrastructure
-    of the Sudanese Businessmen and Employers Federation (SBEF) — modernizing member
-    services, rebuilding commercial registry data, and reconnecting Sudanese enterprises
-    with international capital, development finance, and multilateral procurement networks.
-  </div>
-
-  <div className="hero-btns">
-    <a href="#" className="btn-wf-gold">Register your business</a>
-    <a href="#" className="btn-wf-outline">View the prospectus →</a>
-  </div>
-
-  <div className="hero-stats">
-    <div className="hero-stat">
-      <div className="hs-num">25,000+</div>
-      <div className="hs-label">Enterprise records<br />within 12 months</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">$40M+</div>
-      <div className="hs-label">International contracts<br />matched by Year 2</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">7%</div>
-      <div className="hs-label">SBEF institutional<br />contribution</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">Month 6</div>
-      <div className="hs-label">Full operational<br />self-sufficiency</div>
-    </div>
-  </div>
-</div>
-
-
-{/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/home3.jpg')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
-</div>
-
-
+<ParallaxImage src="/media/home2.webp" />
 
 <div className="grid" id="cards"></div>
 
+<div style={{ height: "40px" }} />
 
 
-<Space height={40} />
-
-{/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/home3.jpg')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
-</div>
+        {/* ── PLATFORM ENGINES ── */}
+        
+          <div className="engines-grid">
+            {engines.map((eng, i) => (
+              <div
+                key={i}
+                className={`engine-wrap${flipped === i ? " flipped" : ""}`}
+                onClick={() => toggle(i)}
+              >
+                <div className="engine-inner">
+                  <div className="engine-front">
+                    <div className="engine-title">{eng.title}</div>
+                    <div className="engine-hint">tap to read →</div>
+                  </div>
+                  <div className="engine-back">
+                    <div className="engine-back-text">{eng.back}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        
 
         {/* ── WHO BENEFITS ── */}
         <div className="sec">
