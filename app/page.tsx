@@ -28,20 +28,20 @@ export default function Home() {
       body: `Thousands of Sudanese businesses are still operating. They have workers, equipment, supply chains, and capacity. 
              But to the outside world — to international buyers, development banks, and UN agencies — they are effectively invisible.
              The war didn't just destroy alfatih. It destroyed the records.`,
-      image: "/media/alfatih.webp",
+      image: "/media/img2.webp",
     },
     {
       title: "What Was Lost",
       body: `Trade registries. Tax ledgers. Chamber of commerce archives. Municipal licensing records. Across Sudan's commercial corridors, the physical documentation that proves a business exists — and that it can be trusted — has been damaged, displaced, or destroyed.
              Without that paper trail, there is no digital trail. And without a digital trail, there is no access to international finance, procurement contracts, or development funding.`,
-      image: "/media/chalange.webp",
+      image: "/media/img1.webp",
     },
     {
       title: "The Cost of Invisibility",
-      body: `International organizations want to source locally. It is cheaper, faster, and more impactful. But their compliance rules are non-negotiable. Anti-money laundering protocols. Sanctions screening. Beneficial ownership verification. If a supplier cannot be verified, they cannot be contracted — regardless of their actual capability.
+      body: `International organizations want to source locally. It is cheaper, faster, and more Recommendations ful. But their compliance rules are non-negotiable. Anti-money laundering protocols. Sanctions screening. Beneficial ownership verification. If a supplier cannot be verified, they cannot be contracted — regardless of their actual capability.
              The result? Between 60% and 85% of humanitarian and reconstruction spending leaves Sudan entirely. It flows to suppliers in neighboring countries while Sudanese businesses — fully capable of delivering — watch from the outside.
              This is not a preference. It is a systems failure.`,
-      image: "/media/b1.webp",
+      image: "/media/img10.webp",
     },
     {
       title: "The Real Challenge",
@@ -56,16 +56,25 @@ Sudan's private sector needs a trusted, neutral, verifiable bridge between what 
     { title: "One Platform. Ten Engines. One Economy!", back: `The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.` },
     { title: "Not ten systems just One.", back: `Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.\nWhen a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.` },
   ];
-
+useEffect(() => {
+  crises.forEach(c => {
+    const img = new window.Image();
+    img.src = c.image;
+  });
+}, []);
   // ── hooks (must all be together, after data, before return) ─────────
   const [activeCard, setActiveCard] = useState(0);
   const [flipped, setFlipped] = useState<number | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const nextCard = () => setActiveCard((prev) => (prev + 1) % crises.length);
   const toggle = (i: number) => setFlipped(flipped === i ? null : i);
 
-function ParallaxImage({ src }: { src: string }) {
+function ParallaxImage() {
   const ref = useRef<HTMLDivElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const images = ["/media/img6.webp", "/media/img7.webp", "/media/img4.webp"];
 
   useEffect(() => {
     const el = ref.current;
@@ -81,17 +90,25 @@ function ParallaxImage({ src }: { src: string }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
       <div
         ref={ref}
         style={{
-          backgroundImage: `url('${src}')`,
+          backgroundImage: `url('${images[currentImageIndex]}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "100%",
           height: "130%",        // taller than container so movement has room
           willChange: "transform",
+          transition: "background-image 0.8s ease-in-out",
         }}
       />
     </div>
@@ -99,18 +116,30 @@ function ParallaxImage({ src }: { src: string }) {
 }
   return (
     <main>
+
+     {/* ── NAV ── */}
       <div className="nav-wf">
         <div className="nav-logo-wf">
           <div className="logo-mark"><div className="logo-tri"></div></div>
           <div className="nav-brand">SBG <span>Sudan Business Gate</span></div>
         </div>
-        <Link href="/" className="nl">Home</Link>
-        <Link href="/platform" className="nl">Platform</Link>
-        <Link href="/roadmap" className="nl">Roadmap</Link>
-        <Link href="/impact" className="nl">Impact</Link>
-        <Link href="/about" className="nl">About</Link>
-        <Link href="/register" className="nl">Register</Link>
-        <Link href="/budget" className="nl active">Budget</Link>
+        <button
+          className="nav-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <i className={`ti ${menuOpen ? "ti-x" : "ti-menu-2"}`} aria-hidden="true" />
+        </button>
+        <div className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
+          <Link href="/" className="nl" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/platform" className="nl" onClick={() => setMenuOpen(false)}>Platform</Link>
+          <Link href="/roadmap" className="nl" onClick={() => setMenuOpen(false)}>Roadmap</Link>
+          <Link href="/about" className="nl" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/register" className="nl" onClick={() => setMenuOpen(false)}>Register</Link>
+          <Link href="/recommendation" className="nl" onClick={() => setMenuOpen(false)}>Recommendation</Link>
+          <Link href="/budget" className="nl" onClick={() => setMenuOpen(false)}>Budget</Link>
+
+        </div>
       </div>
 
       <div className="section-wf">
@@ -134,42 +163,42 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
   <div className="sec-sub">Three interlocking crises have severed the informational bridge between Sudanese businesses and international capital.</div>
 
   <div className="cs-box" onClick={nextCard}>
-    {crises.map((c, i) => (
-      <div key={i} className={`cs-slide${i === activeCard ? " active" : ""}`}>
-        <div className="cs-bg" style={{ backgroundImage: `url(${c.image})` }} />
-        <div className="cs-overlay" />
-        <div className="cs-content">
-          <div className="cs-slide-title">{c.title}</div>
-          <div className="cs-body-box">{c.body}</div>
-          <div className="cs-footer">
-            <div className="cs-dots">
-              {crises.map((_, di) => (
-                <div key={di} className={`cs-dot${di === activeCard ? " active" : ""}`} />
-              ))}
-            </div>
-            <div className="cs-next">
-              {activeCard === crises.length - 1 ? "restart" : "tap anywhere to continue"} →
-            </div>
+    {crises.map((c, i) => {
+  const isActive = i === activeCard;
+  const isNext = i === (activeCard + 1) % crises.length;
+  return (
+    <div key={i} className={`cs-slide${isActive ? " active" : ""}`}>
+      <div
+        className="cs-bg"
+        style={{
+          backgroundImage: isActive || isNext ? `url(${c.image})` : "none"
+        }}
+      />
+      <div className="cs-overlay" />
+      <div className="cs-content">
+        <div className="cs-slide-title">{c.title}</div>
+        <div className="cs-body-box">{c.body}</div>
+        <div className="cs-footer">
+          <div className="cs-dots">
+            {crises.map((_, di) => (
+              <div key={di} className={`cs-dot${di === activeCard ? " active" : ""}`} />
+            ))}
+          </div>
+          <div className="cs-next">
+            {activeCard === crises.length - 1 ? "restart" : "tap anywhere to continue"} →
           </div>
         </div>
       </div>
-    ))}
+    </div>
+  );
+})}
   </div>
 </div>
 
 
-
-
-<ParallaxImage src="/media/home2.webp" />
-
-<div className="grid" id="cards"></div>
-
-<div style={{ height: "40px" }} />
-
-
         {/* ── PLATFORM ENGINES ── */}
         
-          <div className="engines-grid">
+          <div className="engines-grid" >
             {engines.map((eng, i) => (
               <div
                 key={i}
@@ -188,6 +217,15 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
               </div>
             ))}
           </div>
+
+<ParallaxImage />
+
+<div className="grid" id="cards"></div>
+
+<div style={{ height: "40px" }} />
+
+
+
         
 
         {/* ── WHO BENEFITS ── */}
@@ -252,7 +290,7 @@ SBG gives you a verified digital identity, free registration in Year 1, access t
             <div>
               <div className="footer-col-title">Company</div>
               <div className="footer-link">About A-PR</div>
-              <div className="footer-link">Impact & Financials</div>
+              <div className="footer-link">Recommendations  & Financials</div>
               <div className="footer-link">Roadmap</div>
               <div className="footer-link">Contact</div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './roadmap.css'
 import '../globals.css';
 import Image from "next/image";
@@ -95,6 +95,23 @@ export default function Roadmap() {
     return { bg: "#EAF3DE", color: "#3B6D11" };
   };
 
+  useEffect(() => {
+  const rows = document.querySelectorAll(".step-row");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        } else {
+          entry.target.classList.remove("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  rows.forEach((row) => observer.observe(row));
+  return () => observer.disconnect();
+}, []);
   return (
     <main>
       {/* ── NAV ── */}
@@ -114,9 +131,10 @@ export default function Roadmap() {
           <Link href="/" className="nl" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/platform" className="nl" onClick={() => setMenuOpen(false)}>Platform</Link>
           <Link href="/roadmap" className="nl" onClick={() => setMenuOpen(false)}>Roadmap</Link>
-          <Link href="/impact" className="nl" onClick={() => setMenuOpen(false)}>Impact</Link>
           <Link href="/about" className="nl" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/register" className="nl" onClick={() => setMenuOpen(false)}>Register</Link>
+          <Link href="/recommendation" className="nl" onClick={() => setMenuOpen(false)}>Recommendation</Link>
+          <Link href="/budget" className="nl" onClick={() => setMenuOpen(false)}>Budget</Link>
         </div>
       </div>
 
@@ -182,8 +200,31 @@ export default function Roadmap() {
               </div>
             ))}
           </div>
+</div>
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/home1.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
+
+
 
           {/* ── API FLOW ── */}
+        <div className="sec sec-alt">
           <div className="rm-api-flow">
             <div className="rm-api-label">State API Integration Layer</div>
             <div className="rm-api-hub">
@@ -200,55 +241,47 @@ export default function Roadmap() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* ── RISK MATRIX ── */}
-        <div className="sec sec-dark">
-          <div className="eyebrow" style={{ color: "#C8922A", fontSize: "21px" }}>Risk Matrix & Operational Mitigations</div>
-          <div className="sec-h2-light" style={{ fontSize: "18px"}}>We mapped the risks.<br />We built the mitigations.</div>
-          <div className="sec-sub-light" style={{ marginBottom: "40px" }}>
-            Every infrastructure programme of this scale carries operational risk.
-            What sets SBG apart is that the risk framework was built before the
-            platform — not after the first failure.
-          </div>
+  {/* ── RISK MATRIX ── */}
+<div className="sec sec-dark">
+  <div className="eyebrow">Risk Matrix & Operational Mitigations</div>
+  <h2 className="sec-h2-light">We mapped the risks.<br />We built the mitigations.</h2>
+  <p className="sec-sub-light" style={{ marginBottom: "48px" }}>
+    Every infrastructure programme of this scale carries operational risk.
+    What sets SBG apart is that the risk framework was built before the
+    platform — not after the first failure.
+  </p>
 
-          <div className="rm-risk-list">
-            {risks.map((r, i) => (
-              <div className="rm-risk-row" key={i}>
-                <div className="rm-risk-left">
-                  <div className="rm-risk-num">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div className="rm-risk-title">{r.risk}</div>
-                  <div className="rm-risk-badges">
-                    <span
-                      className="rm-risk-badge"
-                      style={{
-                        background: likelihoodColor(r.likelihood).bg,
-                        color: likelihoodColor(r.likelihood).color,
-                      }}
-                    >
-                      {r.likelihood} likelihood
-                    </span>
-                    <span
-                      className="rm-risk-badge"
-                      style={{
-                        background: impactColor(r.impact).bg,
-                        color: impactColor(r.impact).color,
-                      }}
-                    >
-                      {r.impact} impact
-                    </span>
-                  </div>
-                </div>
-                <div className="rm-risk-divider" />
-                <div className="rm-risk-right">
-                  <div className="rm-risk-mit-label">Mitigation</div>
-                  <div className="rm-risk-mitigation">{r.mitigation}</div>
-                </div>
-              </div>
-            ))}
+  <div className="rm-risk-list">
+    {risks.map((r, i) => (
+      <div className="rm-risk-row" key={i}>
+
+        <div className="rm-risk-left">
+          <div className="rm-risk-num">{String(i + 1).padStart(2, "0")}</div>
+          <div className="rm-risk-title">{r.risk}</div>
+          <div className="rm-risk-badges">
+            <span className="rm-risk-badge" style={{ background: likelihoodColor(r.likelihood).bg, color: likelihoodColor(r.likelihood).color }}>
+              {r.likelihood} likelihood
+            </span>
+            <span className="rm-risk-badge" style={{ background: impactColor(r.impact).bg, color: impactColor(r.impact).color }}>
+              {r.impact} impact
+            </span>
           </div>
         </div>
+
+        <div className="rm-risk-right">
+          <div className="rm-risk-mit-label">
+            <span className="rm-mit-dot" />
+            Mitigation
+          </div>
+          <div className="rm-risk-mitigation">{r.mitigation}</div>
+        </div>
+
+      </div>
+    ))}
+  </div>
+</div>
 
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
@@ -258,7 +291,7 @@ export default function Roadmap() {
   overflow: "hidden",
 }}>
   <div style={{
-    backgroundImage: "url('/media/home2.webp')",
+    backgroundImage: "url('/media/img10.webp')",
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -270,53 +303,66 @@ export default function Roadmap() {
 
 
         {/* ── IMMEDIATE ACTIONS ── */}
-        <div className="sec">
-          <div className="eyebrow" style={{ fontSize: "21px"}}>Immediate Actions</div>
-          <div className="sec-h2">Four steps to launch</div>
-          <div className="sec-sub">
-            Upon approval, these are the first four actions required to initialize
-            the Sudan Business Gate programme.
-          </div>
+<div className="sec">
+  <div className="eyebrow">Immediate Actions</div>
+  <div className="sec-h2">Four steps to launch</div>
+  <div className="sec-sub">
+    Upon approval, these are the first four actions required to initialize
+    the Sudan Business Gate programme.
+  </div>
 
-          <div className="rm-actions">
-            {[
-              {
-                num: "01",
-                title: "Establish the Joint Governance Committee",
-                body: "Convene SBEF leadership, A-PR executives, and independent financial auditors to oversee technical execution and capital recovery protocols.",
-                icon: "ti-users",
-              },
-              {
-                num: "02",
-                title: "Finalize the BOT Transition Agreement",
-                body: "Ratify binding contractual milestones governing the technical lifecycle, data custodianship boundaries, and the formal handover of all platform assets to SBEF.",
-                icon: "ti-file-certificate",
-              },
-              {
-                num: "03",
-                title: "Prepare primary hosting environments",
-                body: "Initialize procurement and configuration of multi-region cloud servers in Egypt — establishing security configurations and encryption parameters before entering any active company records.",
-                icon: "ti-server",
-              },
-              {
-                num: "04",
-                title: "Authorize the Research Unit and Support Centre",
-                body: "Onboard the five-person analytical team and launch the voice support facility to begin data recovery from historical chamber ledgers and initiate the Phase 1 grassroots adoption campaign.",
-                icon: "ti-chart-dots",
-              },
-            ].map((a, i) => (
-              <div className="rm-action-card" key={i}>
-                <div className="rm-action-top">
-                  <div className="rm-action-num">{a.num}</div>
-                  <i className={`ti ${a.icon} rm-action-icon`} aria-hidden="true" />
-                </div>
-                <div className="rm-action-title">{a.title}</div>
-                <div className="rm-action-body">{a.body}</div>
-              </div>
-            ))}
+  <div className="steps-graph">
+    {[
+      {
+        num: "01",
+        title: "Establish the Joint Governance Committee",
+        body: "Convene SBEF leadership, A-PR executives, and independent financial auditors to oversee technical execution and capital recovery protocols.",
+        icon: "ti-users",
+      },
+      {
+        num: "02",
+        title: "Finalize the BOT Transition Agreement",
+        body: "Ratify binding contractual milestones governing the technical lifecycle, data custodianship boundaries, and the formal handover of all platform assets to SBEF.",
+        icon: "ti-file-certificate",
+      },
+      {
+        num: "03",
+        title: "Prepare primary hosting environments",
+        body: "Initialize procurement and configuration of multi-region cloud servers in Egypt — establishing security configurations and encryption parameters before entering any active company records.",
+        icon: "ti-server",
+      },
+      {
+        num: "04",
+        title: "Authorize the Research Unit and Support Centre",
+        body: "Onboard the five-person analytical team and launch the voice support facility to begin data recovery from historical chamber ledgers and initiate the Phase 1 grassroots adoption campaign.",
+        icon: "ti-chart-dots",
+      },
+    ].map((a, i, arr) => (
+      <div className="step-row" key={i}>
+
+        {/* Left: spine */}
+        <div className="step-spine">
+          <div className="step-node">
+            <i className={`ti ${a.icon}`} aria-hidden="true" />
           </div>
+          {i < arr.length - 1 && <div className="step-line" />}
         </div>
 
+        {/* Right: content */}
+        <div className="step-content">
+          <div className="step-meta">
+            <span className="step-num">Step {a.num}</span>
+            {i < arr.length - 1 && <span className="step-arrow">↓</span>}
+          </div>
+          <div className="step-title">{a.title}</div>
+          <div className="step-body">{a.body}</div>
+        </div>
+
+      </div>
+    ))}
+  </div>
+  
+</div>
 
         {/*
         ── FOOTER ──
@@ -340,7 +386,6 @@ export default function Roadmap() {
             <div>
               <div className="footer-col-title">Company</div>
               <div className="footer-link">About A-PR</div>
-              <div className="footer-link">Impact & Financials</div>
               <div className="footer-link">Roadmap</div>
               <div className="footer-link">Contact</div>
             </div>
@@ -358,7 +403,6 @@ export default function Roadmap() {
         </div>
         */}
 
-      </div>
-    </main>
+=    </main>
   );
 }

@@ -1,50 +1,100 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import "./platform.css";
 import Link from "next/link";
 
-
+import * as Icons from "lucide-react";
 
 export default function Platform() {
   const engines = [
-  { num: "01", title: "Digital Federation Platform", body: "The administrative core. SBEF manages its entire member network, regional chamber activities, and organizational compliance from a single interface." },
-  { num: "02", title: "National Business Directory", body: "A living public ledger of Sudan's operating enterprises, searchable by sector, geography, and production capacity. The foundation of everything." },
-  { num: "03", title: "Business Verification System", body: "A three-tier compliance engine that triangulates corporate legitimacy without depending on any single destroyed source. Silver. Gold. Platinum." },
-  { num: "04", title: "Procurement & Market Access", body: "An automated gateway that matches international tenders to verified local suppliers in real time, across web and low-bandwidth USSD channels simultaneously." },
-  { num: "05", title: "Research & Economic Intelligence Centre", body: "Five dedicated analysts converting platform data into licensed market intelligence: sector reports, pricing indexes, and investment-grade field assessments." },
-  { num: "06", title: "National Business Support Centre", body: "A nationwide multilingual call centre ensuring that registration is not limited to those with stable internet. Telephone. SMS. Human assistance." },
-  { num: "07", title: "Events & Community Platform", body: "The coordination layer for trade exhibitions, sector roundtables, training programmes, and institutional trade missions." },
-  { num: "08", title: "Advocacy & Member Services", body: "A secure portal for policy distribution, legal consultations, trade dispute reporting, and internal SBEF governance." },
-  { num: "09", title: "Data & Analytics Infrastructure", body: "Real-time dashboards and compliance summaries that give institutional stakeholders an objective, auditable view of Sudan's economic recovery in motion." },
-  { num: "10", title: "Government & Institutional Integration", body: "Secure API connections to the Central Bank, Customs Authority, federal ministries, and international financial institutions — making SBG the authoritative data bridge between Sudan's private sector and the state." },
-];
+    { num: "01", icon: Icons.Building2,       title: "Digital Federation Platform",          body: "The administrative core. SBEF manages its entire member network, regional chamber activities, and organizational compliance from a single interface." },
+    { num: "02", icon: Icons.BookOpen,         title: "National Business Directory",           body: "A living public ledger of Sudan's operating enterprises, searchable by sector, geography, and production capacity. The foundation of everything." },
+    { num: "03", icon: Icons.ShieldCheck,      title: "Business Verification System",          body: "A three-tier compliance engine that triangulates corporate legitimacy without depending on any single destroyed source. Silver. Gold. Platinum." },
+    { num: "04", icon: Icons.ShoppingCart,     title: "Procurement & Market Access",           body: "An automated gateway that matches international tenders to verified local suppliers in real time, across web and low-bandwidth USSD channels simultaneously." },
+    { num: "05", icon: Icons.BarChart2,        title: "Research & Economic Intelligence Centre", body: "Five dedicated analysts converting platform data into licensed market intelligence: sector reports, pricing indexes, and investment-grade field assessments." },
+    { num: "06", icon: Icons.Headphones,       title: "National Business Support Centre",      body: "A nationwide multilingual call centre ensuring that registration is not limited to those with stable internet. Telephone. SMS. Human assistance." },
+    { num: "07", icon: Icons.CalendarDays,     title: "Events & Community Platform",           body: "The coordination layer for trade exhibitions, sector roundtables, training programmes, and institutional trade missions." },
+    { num: "08", icon: Icons.Users,            title: "Advocacy & Member Services",            body: "A secure portal for policy distribution, legal consultations, trade dispute reporting, and internal SBEF governance." },
+    { num: "09", icon: Icons.Database,         title: "Data & Analytics Infrastructure",       body: "Real-time dashboards and compliance summaries that give institutional stakeholders an objective, auditable view of Sudan's economic recovery in motion." },
+    { num: "10", icon: Icons.Link2,            title: "Government & Institutional Integration", body: "Secure API connections to the Central Bank, Customs Authority, federal ministries, and international financial institutions — making SBG the authoritative data bridge between Sudan's private sector and the state." },
+  ];
 
   const [flipped, setFlipped] = useState<number | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const toggle = (i: number) => setFlipped(flipped === i ? null : i);
 
-  const rows = [engines.slice(0, 6), engines.slice(6)];
+const rows = [engines.slice(0, 3), engines.slice(3, 6), engines.slice(6, 9), engines.slice(9)];
+function ParallaxImage() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const images = ["/media/img14.webp", "/media/img15.webp", "/media/img16.webp"];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const offset = rect.top * 0.25; // 0.25 = parallax strength
+      el.style.transform = `translateY(${offset}px)`;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 4000); // Change image every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   return (
+    <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
+      <div
+        ref={ref}
+        style={{
+          backgroundImage: `url('${images[currentImageIndex]}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "100%",
+          height: "130%",        // taller than container so movement has room
+          willChange: "transform",
+          transition: "background-image 0.8s ease-in-out",
+        }}
+      />
+    </div>
+  );
+}
+  return (
     <main>
+      
+  {/* ── NAV ── */}
       <div className="nav-wf">
         <div className="nav-logo-wf">
-          <div className="logo-mark">
-            <div className="logo-tri"></div>
-          </div>
-          <div className="nav-brand">
-            SBG <span>Sudan Business Gateway</span>
-          </div>
+          <div className="logo-mark"><div className="logo-tri"></div></div>
+          <div className="nav-brand">SBG <span>Sudan Business Gate</span></div>
         </div>
-
-        <Link href="/" className="nl">Home</Link>
-        <Link href="/platform" className="nl">Platform</Link>
-        <Link href="/roadmap" className="nl">Roadmap</Link>
-        <Link href="/impact" className="nl">Impact</Link>
-        <Link href="/about" className="nl">About</Link>
-        <Link href="/register" className="nl">Register</Link>
-        <Link href="/budget" className="nl active">Budget</Link>
+        <button
+          className="nav-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <i className={`ti ${menuOpen ? "ti-x" : "ti-menu-2"}`} aria-hidden="true" />
+        </button>
+        <div className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
+          <Link href="/" className="nl" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/platform" className="nl" onClick={() => setMenuOpen(false)}>Platform</Link>
+          <Link href="/roadmap" className="nl" onClick={() => setMenuOpen(false)}>Roadmap</Link>
+          <Link href="/about" className="nl" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/register" className="nl" onClick={() => setMenuOpen(false)}>Register</Link>
+          <Link href="/recommendation" className="nl" onClick={() => setMenuOpen(false)}>Recommendation</Link>
+          <Link href="/budget" className="nl" onClick={() => setMenuOpen(false)}>Budget</Link>
+        </div>
       </div>
 
 {/* ── PARALLAX IMAGE ── */}
@@ -55,7 +105,7 @@ export default function Platform() {
   overflow: "hidden",
 }}>
   <div style={{
-    backgroundImage: "url('/media/home2.webp')",
+    backgroundImage: "url('/media/img17.webp')",
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -64,48 +114,52 @@ export default function Platform() {
     height: "100%",
   }} />
 </div>
-      <section className="sec sec-alt">
+<section className="sec sec-alt">
         <div className="eyebrow">The platform</div>
 
         <h2 className="h2">
           The ten components
         </h2>
 
-
-<div>
-      {rows.map((row, ri) => (
-        <div className="crisis-grid" key={ri} style={{ marginBottom: "14px" }}>
-          {row.map((e, i) => {
-            const idx = ri * 6 + i;
-            return (
-              <div
-                key={idx}
-                className={`engine-wrap ${flipped === idx ? "flipped" : ""}`}
-                onClick={() => toggle(idx)}
-              >
-                <div className="engine-inner">
-                  {/* Front */}
-                  <div className="engine-front">
-                    <div>
-                      <div className="engine-num">{e.num}</div>
-                      <div className="engine-title">{e.title}</div>
+        <div>
+          {rows.map((row, ri) => (
+            <div className="crisis-grid1" key={ri} style={{ marginBottom: "14px" }}>
+              {row.map((e, i) => {
+                const idx = ri * 6 + i;
+                const Icon = e.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`engine-wrap ${flipped === idx ? "flipped" : ""}`}
+                    onClick={() => toggle(idx)}
+                  >
+                    <div className="engine-inner">
+                      {/* Front */}
+                      <div className="engine-front">
+                        <div>
+                          <Icon className="engine-icon" />
+                          <div className="engine-num">{e.num}</div>
+                          <div className="engine-title">{e.title}</div>
+                        </div>
+                        <div className="engine-hint">tap to read →</div>
+                      </div>
+                      {/* Back */}
+                      <div className="engine-back">
+                        <div className="engine-back-header">
+                          <Icon className="engine-icon-back" />
+                          <div className="engine-back-num">{e.num}</div>
+                        </div>
+                        <div className="engine-back-title">{e.title}</div>
+                        <div className="engine-back-body">{e.body}</div>
+                        <div className="engine-back-hint">↩ tap to close</div>
+                      </div>
                     </div>
-                    <div className="engine-hint">tap to read →</div>
                   </div>
-                  {/* Back */}
-                  <div className="engine-back">
-                    <div className="engine-back-num">{e.num}</div>
-                    <div className="engine-back-title">{e.title}</div>
-                    <div className="engine-back-body">{e.body}</div>
-                    <div className="engine-back-hint">↩ tap to close</div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
       </section>
 
       {/* ── SBEF MODERNIZATION ── */}
@@ -162,22 +216,12 @@ export default function Platform() {
 
 
 {/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/home1.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
-</div>
+<ParallaxImage />
+
+<div className="grid" id="cards"></div>
+
+<div style={{ height: "40px" }} />
+
 
 
 {/* ── NATIONAL BUSINESS SUPPORT CENTRE ── */}
@@ -354,9 +398,10 @@ export default function Platform() {
 
 
 </div>
+</div>
 {/* ── COMMERCIAL PRODUCTS ── */}
 <div className="ric-products-wrapper">
-  <div className="ric-products-label">Three commercial products</div>
+  <div className="eyebrow">Three commercial products</div>
   <div className="ric-products-label-sub">
     The Centre licenses its analytical outputs through a defined product suite —
     generating revenue from Month 1, independent of registration fee scale.
@@ -409,7 +454,7 @@ export default function Platform() {
   </div>
 
 
-</div>
+
 
 
 {/* ── PARALLAX IMAGE ── */}
@@ -506,7 +551,7 @@ export default function Platform() {
     </div>
     <div className="pb-outcome">
       <div className="pb-outcome-num">03</div>
-      <div className="pb-outcome-title">Auditable impact</div>
+      <div className="pb-outcome-title">Auditable Recommendations </div>
       <div className="pb-outcome-body">
         Success is measured by the Procurement Localisation Value — the total dollar value
         of international contracts awarded to domestic firms. Target: $40M by Year 2.
