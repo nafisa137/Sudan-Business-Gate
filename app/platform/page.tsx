@@ -46,7 +46,6 @@ export default function Platform() {
         <Link href="/register" className="nl">Register</Link>
       </div>
 
-
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
   width: "100%",
@@ -54,18 +53,16 @@ export default function Platform() {
   position: "relative",
   overflow: "hidden",
 }}>
-  <Image
-      src="/media/home2.webp"
-      alt=""
-      fill
-      priority
-      quality={80}
-      sizes="100vw"
-      style={{
-        objectFit: "cover",
-      }} />
+  <div style={{
+    backgroundImage: "url('/media/home2.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
 </div>
-
       <section className="sec sec-alt">
         <div className="eyebrow">The platform</div>
 
@@ -170,18 +167,16 @@ export default function Platform() {
   position: "relative",
   overflow: "hidden",
 }}>
-  <Image
-      src="/media/home1.webp"
-      alt=""
-      fill
-      priority
-      quality={80}
-      sizes="100vw"
-      style={{
-        objectFit: "cover",
-      }} />
+  <div style={{
+    backgroundImage: "url('/media/home1.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
 </div>
-
 
 
 {/* ── NATIONAL BUSINESS SUPPORT CENTRE ── */}
@@ -406,27 +401,21 @@ export default function Platform() {
 
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
-width: "100vw",
-  maxWidth: "100vw",
-
+  width: "100%",
   height: "480px",
   position: "relative",
   overflow: "hidden",
-   left: "50%",
-    marginLeft: "-50vw",
 }}>
-  <Image
-      src="/media/home1.webp"
-      alt=""
-      fill
-      priority
-      quality={80}
-      sizes="100vw"
-      style={{
-        objectFit: "cover",
-      }} />
+  <div style={{
+    backgroundImage: "url('/media/home1.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
 </div>
-
 
 {/* ── PROCUREMENT BRIDGE ── */}
 <div

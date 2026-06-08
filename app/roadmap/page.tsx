@@ -1,117 +1,364 @@
-import "./roadmap.css";
+"use client";
+
 import Link from "next/link";
-export default function Register() {
+import { useState } from "react";
+import './roadmap.css'
+import '../globals.css';
+import Image from "next/image";
+
+
+export default function Roadmap() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const risks = [
+    {
+      risk: "Low grassroots adoption in Phase 1",
+      likelihood: "Medium",
+      impact: "High",
+      mitigation:
+        "National Business Support Centre provides telephone-assisted registration. Physical chamber clinics deploy to low-connectivity areas. $0 entry tier maintained for all of Year 1.",
+    },
+    {
+      risk: "Extended infrastructure and connectivity disruption",
+      likelihood: "High",
+      impact: "High",
+      mitigation:
+        "Progressive Web App caches data offline. USSD gateway operates over basic GSM voice links. Primary hosting infrastructure located in Egypt — insulated from domestic grid failures.",
+    },
+    {
+      risk: "Data integrity failures and registration fraud",
+      likelihood: "Medium",
+      impact: "High",
+      mitigation:
+        "Tier 2 mandates human legal review. Tier 3 enforces multi-factor triangulation and physical site audits. Automated international sanctions screening runs continuously across all entities.",
+    },
+    {
+      risk: "Ecosystem governance disputes and institutional friction",
+      likelihood: "Low",
+      impact: "High",
+      mitigation:
+        "BOT agreement establishes clear parameters before launch. Joint Governance Board gives SBEF equal representation. Legacy SBEF revenue streams are ring-fenced.",
+    },
+    {
+      risk: "Delays in transitioning to Phase 2 marketplace",
+      likelihood: "Medium",
+      impact: "Medium",
+      mitigation:
+        "Transition triggered by documented registry density threshold — not a calendar date. Threshold supervised and confirmed by the Research Centre.",
+    },
+  ];
+
+  const integrations = [
+    {
+      icon: "ti-building-government",
+      title: "Ministry of Trade & Investment",
+      body: "Corporate licensing status and investment certificate confirmation flows automatically — replacing weeks of manual submission with an instant authenticated data link.",
+      tag: "Licensing & compliance",
+      color: "#E6F1FB",
+      iconColor: "#185FA5",
+    },
+    {
+      icon: "ti-bank",
+      title: "Central Bank of Sudan",
+      body: "SBG compliance profiles integrate with central credit assessment infrastructure — giving under-banked SMEs their first credible path to formal finance. A verified SBG profile becomes a credit identity.",
+      tag: "Credit & finance",
+      color: "#EAF3DE",
+      iconColor: "#3B6D11",
+    },
+    {
+      icon: "ti-truck",
+      title: "Sudanese Customs Authority",
+      body: "Digital trade verification flows replace manual document checks at the border — cutting clearance times and making Sudanese exports more competitive in regional and international markets.",
+      tag: "Trade & exports",
+      color: "#FAEEDA",
+      iconColor: "#854F0B",
+    },
+    {
+      icon: "ti-chart-line",
+      title: "Khartoum Stock Exchange",
+      body: "Listed corporate entities connect directly to the platform — synchronizing public market indicators with SBG organizational profiles for a single integrated view of Sudan's formal economy.",
+      tag: "Capital markets",
+      color: "#E1F5EE",
+      iconColor: "#0F6E56",
+    },
+  ];
+
+  const likelihoodColor = (l: string) => {
+    if (l === "High") return { bg: "#FCEBEB", color: "#A32D2D" };
+    if (l === "Medium") return { bg: "#FAEEDA", color: "#854F0B" };
+    return { bg: "#EAF3DE", color: "#3B6D11" };
+  };
+
+  const impactColor = (i: string) => {
+    if (i === "High") return { bg: "#FCEBEB", color: "#A32D2D" };
+    if (i === "Medium") return { bg: "#FAEEDA", color: "#854F0B" };
+    return { bg: "#EAF3DE", color: "#3B6D11" };
+  };
+
   return (
     <main>
+      {/* ── NAV ── */}
+      <div className="nav-wf">
+        <div className="nav-logo-wf">
+          <div className="logo-mark"><div className="logo-tri"></div></div>
+          <div className="nav-brand">SBG <span>Sudan Business Gate</span></div>
+        </div>
+        <button
+          className="nav-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <i className={`ti ${menuOpen ? "ti-x" : "ti-menu-2"}`} aria-hidden="true" />
+        </button>
+        <div className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
+          <Link href="/" className="nl" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/platform" className="nl" onClick={() => setMenuOpen(false)}>Platform</Link>
+          <Link href="/roadmap" className="nl" onClick={() => setMenuOpen(false)}>Roadmap</Link>
+          <Link href="/impact" className="nl" onClick={() => setMenuOpen(false)}>Impact</Link>
+          <Link href="/about" className="nl" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link href="/register" className="nl" onClick={() => setMenuOpen(false)}>Register</Link>
+        </div>
+      </div>
 
+      <div className="section-wf">
 
-          <div className="nav-wf">
-            <div className="nav-logo-wf">
-              <div className="logo-mark"><div className="logo-tri"></div></div>
-              <div className="nav-brand">SBG <span>Sudan Business Gateway</span></div>
+        {/* ── PAGE HERO ── */}
+        <div className="rm-hero">
+          <div className="hero-grid" />
+
+          <div className="rm-hero-h1">
+            SBG doesn't sit beside<br />
+            Sudan's institutions.<br />
+            <em>It connects them.</em>
+          </div>
+          <div className="rm-hero-sub">
+            A verified business registry is only as powerful as the systems it talks to.
+            The State API Integration Layer embeds SBG directly into Sudan's regulatory
+            and financial architecture — making the platform the central hub for
+            authenticated commercial data across the entire state apparatus.
+          </div>
+          <div className="rm-hero-stats">
+            <div className="rm-hero-stat">
+              <div className="rm-hs-num">4</div>
+              <div className="rm-hs-label">State institutions<br />directly integrated</div>
             </div>
+            <div className="rm-hero-stat">
+              <div className="rm-hs-num">5</div>
+              <div className="rm-hs-label">Operational risks<br />pre-mitigated</div>
+            </div>
+            <div className="rm-hero-stat">
+              <div className="rm-hs-num">API</div>
+              <div className="rm-hs-label">Real-time authenticated<br />data exchange</div>
+            </div>
+            <div className="rm-hero-stat">
+              <div className="rm-hs-num">BOT</div>
+              <div className="rm-hs-label">Governance framework<br />pre-established</div>
+            </div>
+          </div>
+        </div>
 
-           
-            <Link href="/" className="nl">Home</Link>
-            <Link href="/platform" className="nl">Platform</Link>
-            <Link href="/roadmap" className="nl">Roadmap</Link>
-            <Link href="/impact" className="nl">Impact</Link>
-            <Link href="/about" className="nl">About</Link>
-            <Link href="/register" className="nl">Register</Link>
+        {/* ── STATE INTEGRATIONS ── */}
+        <div className="sec sec-alt">
+          <div className="eyebrow" style={{ fontSize: "21px"}}>Strategic Institutional Integrations</div>
+          <div className="sec-h2">Four institutional connections.<br />One trusted data spine.</div>
+          <div className="sec-sub">
+            A company verified on SBG should not need to re-verify itself at every
+            institution. The data flows — authenticated, trusted, and instant —
+            across every state system that needs it.
           </div>
 
-  <div className="sec sec-alt">
-    <div className="eyebrow">Strategic roadmap</div>
-    <div className="h2">Four phases from census to global integration</div>
-    <div className="sub">A disciplined, evidence-based rollout where each phase unlocks the next only upon reaching measurable milestones.</div>
+          <div className="rm-int-grid">
+            {integrations.map((item, i) => (
+              <div className="rm-int-card" key={i}>
+                <div
+                  className="rm-int-icon"
+                  style={{ background: item.color, color: item.iconColor }}
+                >
+                  <i className={`ti ${item.icon}`} aria-hidden="true" />
+                </div>
+                <div className="rm-int-tag">{item.tag}</div>
+                <div className="rm-int-title">{item.title}</div>
+                <div className="rm-int-body">{item.body}</div>
+              </div>
+            ))}
+          </div>
 
-    <div style={{ position: "relative", marginBottom: 12 }}>
-      <div className="phase-line"></div>
-      <div className="phase-line-fill"></div>
-      <div className="phase-row">
-        <div className="phase">
-          <div className="phase-dot pd-active">1</div>
-          <div className="phase-num">Phase 1</div>
-          <div className="phase-title">Sovereign Census & Registry</div>
-          <div className="phase-sub">Digital backbone, SBG badge, onboarding</div>
-          <span className="phase-status s-active">Active</span>
+          {/* ── API FLOW ── */}
+          <div className="rm-api-flow">
+            <div className="rm-api-label">State API Integration Layer</div>
+            <div className="rm-api-hub">
+              <i className="ti ti-cpu" aria-hidden="true" />
+              <span>SBG Data Hub</span>
+            </div>
+            <div className="rm-api-spokes">
+              {["Ministry of Trade", "Central Bank", "Customs Authority", "Stock Exchange"].map((s, i) => (
+                <div className="rm-api-spoke" key={i}>
+                  <div className="rm-api-spoke-line" />
+                  <div className="rm-api-spoke-label">{s}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="phase">
-          <div className="phase-dot pd-next">2</div>
-          <div className="phase-num">Phase 2</div>
-          <div className="phase-title">Supply Chain Restoration</div>
-          <div className="phase-sub">Procurement engine, policy dashboard</div>
-          <span className="phase-status s-next">Next</span>
-        </div>
-        <div className="phase">
-          <div className="phase-dot pd-future">3</div>
-          <div className="phase-num">Phase 3</div>
-          <div className="phase-title">Financial Frameworks</div>
-          <div className="phase-sub">Stock exchange, credit access, talent</div>
-          <span className="phase-status s-planned">Planned</span>
-        </div>
-        <div className="phase">
-          <div className="phase-dot pd-future">4</div>
-          <div className="phase-num">Phase 4</div>
-          <div className="phase-title">Joint Council Gateway</div>
-          <div className="phase-sub">Global bilateral integration</div>
-          <span className="phase-status s-planned">Planned</span>
-        </div>
-      </div>
-    </div>
 
-    <div className="phase-cards">
-      <div className="pc active-pc">
-        <div className="pc-phase">Phase 1 — Active</div>
-        <div className="pc-title">Sovereign Census & Registry</div>
-        <div className="pc-item">Build Odoo ERP core</div>
-        <div className="pc-item">Launch National Business Directory</div>
-        <div className="pc-item">Issue SBG badges (Silver tier)</div>
-        <div className="pc-item">Onboard 18 state chambers</div>
-        <div className="pc-item">Research Centre setup</div>
-      </div>
-      <div className="pc">
-        <div className="pc-phase">Phase 2</div>
-        <div className="pc-title">Supply Chain Restoration</div>
-        <div className="pc-item">Activate procurement matching</div>
-        <div className="pc-item">Launch Policy Impact Dashboard</div>
-        <div className="pc-item">International buyer API links</div>
-        <div className="pc-item">Gold & Platinum tier rollout</div>
-      </div>
-      <div className="pc">
-        <div className="pc-phase">Phase 3</div>
-        <div className="pc-title">Financial Frameworks</div>
-        <div className="pc-item">KSE market integration</div>
-        <div className="pc-item">Micro-finance access pathways</div>
-        <div className="pc-item">Talent portal launch</div>
-        <div className="pc-item">Sukuk & Musharaka tracking</div>
-      </div>
-      <div className="pc">
-        <div className="pc-phase">Phase 4</div>
-        <div className="pc-title">Joint Council Gateway</div>
-        <div className="pc-item">Bilateral gateway activation</div>
-        <div className="pc-item">Diaspora investment portal</div>
-        <div className="pc-item">Foreign trade chamber links</div>
-        <div className="pc-item">iOS / Android native apps</div>
-      </div>
-    </div>
-  </div>
+        {/* ── RISK MATRIX ── */}
+        <div className="sec sec-dark">
+          <div className="eyebrow" style={{ color: "#C8922A", fontSize: "21px" }}>Risk Matrix & Operational Mitigations</div>
+          <div className="sec-h2-light" style={{ fontSize: "18px"}}>We mapped the risks.<br />We built the mitigations.</div>
+          <div className="sec-sub-light" style={{ marginBottom: "40px" }}>
+            Every infrastructure programme of this scale carries operational risk.
+            What sets SBG apart is that the risk framework was built before the
+            platform — not after the first failure.
+          </div>
 
-  <div className="sec-gold">
-    <div className="eyebrow">Immediate next steps</div>
-    <div className="h2" style={{ marginBottom: 16 }}>Actions upon programme approval</div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-      <div style={{ background: '#fff', borderRadius: 10, padding: 14, border: '.5px solid #FAC775' }}>
-        <div style={{ fontSize: 10, fontWeight: 600, color: '#C8922A', marginBottom: 4 }}>A · Contract formalization</div>
-        <div style={{ fontSize: 10, color: '#4A5568', lineHeight: 1.6 }}>Finalize technical scopes, SLAs, and hosting budgets. Initialize sandboxed databases and secure servers.</div>
-      </div>
-      <div style={{ background: '#fff', borderRadius: 10, padding: 14, border: '.5px solid #FAC775' }}>
-        <div style={{ fontSize: 10, fontWeight: 600, color: '#C8922A', marginBottom: 4 }}>B · Dual-track discovery</div>
-        <div style={{ fontSize: 10, color: '#4A5568', lineHeight: 1.6 }}>Track 1: SBEF board consultation (3 weeks). Track 2: Chamber field exploration (2 weeks, parallel).</div>
-      </div>
-    </div>
-  </div>
+          <div className="rm-risk-list">
+            {risks.map((r, i) => (
+              <div className="rm-risk-row" key={i}>
+                <div className="rm-risk-left">
+                  <div className="rm-risk-num">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="rm-risk-title">{r.risk}</div>
+                  <div className="rm-risk-badges">
+                    <span
+                      className="rm-risk-badge"
+                      style={{
+                        background: likelihoodColor(r.likelihood).bg,
+                        color: likelihoodColor(r.likelihood).color,
+                      }}
+                    >
+                      {r.likelihood} likelihood
+                    </span>
+                    <span
+                      className="rm-risk-badge"
+                      style={{
+                        background: impactColor(r.impact).bg,
+                        color: impactColor(r.impact).color,
+                      }}
+                    >
+                      {r.impact} impact
+                    </span>
+                  </div>
+                </div>
+                <div className="rm-risk-divider" />
+                <div className="rm-risk-right">
+                  <div className="rm-risk-mit-label">Mitigation</div>
+                  <div className="rm-risk-mitigation">{r.mitigation}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/home2.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
+        {/* ── IMMEDIATE ACTIONS ── */}
+        <div className="sec">
+          <div className="eyebrow" style={{ fontSize: "21px"}}>Immediate Actions</div>
+          <div className="sec-h2">Four steps to launch</div>
+          <div className="sec-sub">
+            Upon approval, these are the first four actions required to initialize
+            the Sudan Business Gate programme.
+          </div>
+
+          <div className="rm-actions">
+            {[
+              {
+                num: "01",
+                title: "Establish the Joint Governance Committee",
+                body: "Convene SBEF leadership, A-PR executives, and independent financial auditors to oversee technical execution and capital recovery protocols.",
+                icon: "ti-users",
+              },
+              {
+                num: "02",
+                title: "Finalize the BOT Transition Agreement",
+                body: "Ratify binding contractual milestones governing the technical lifecycle, data custodianship boundaries, and the formal handover of all platform assets to SBEF.",
+                icon: "ti-file-certificate",
+              },
+              {
+                num: "03",
+                title: "Prepare primary hosting environments",
+                body: "Initialize procurement and configuration of multi-region cloud servers in Egypt — establishing security configurations and encryption parameters before entering any active company records.",
+                icon: "ti-server",
+              },
+              {
+                num: "04",
+                title: "Authorize the Research Unit and Support Centre",
+                body: "Onboard the five-person analytical team and launch the voice support facility to begin data recovery from historical chamber ledgers and initiate the Phase 1 grassroots adoption campaign.",
+                icon: "ti-chart-dots",
+              },
+            ].map((a, i) => (
+              <div className="rm-action-card" key={i}>
+                <div className="rm-action-top">
+                  <div className="rm-action-num">{a.num}</div>
+                  <i className={`ti ${a.icon} rm-action-icon`} aria-hidden="true" />
+                </div>
+                <div className="rm-action-title">{a.title}</div>
+                <div className="rm-action-body">{a.body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
+        {/*
+        ── FOOTER ──
+        <div className="footer-wf">
+          <div className="footer-grid">
+            <div>
+              <div className="footer-brand">▲ Sudan Business Gate</div>
+              <div className="footer-tagline">
+                A-PR Multi-Activities Co. Ltd.<br />
+                49th Street, Amarat, Khartoum, Sudan<br />
+                apr.excu@gmail.com · +249 91 238 1655
+              </div>
+            </div>
+            <div>
+              <div className="footer-col-title">Platform</div>
+              <div className="footer-link">Overview</div>
+              <div className="footer-link">Verification tiers</div>
+              <div className="footer-link">Procurement bridge</div>
+              <div className="footer-link">Technology</div>
+            </div>
+            <div>
+              <div className="footer-col-title">Company</div>
+              <div className="footer-link">About A-PR</div>
+              <div className="footer-link">Impact & Financials</div>
+              <div className="footer-link">Roadmap</div>
+              <div className="footer-link">Contact</div>
+            </div>
+            <div>
+              <div className="footer-col-title">Register</div>
+              <div className="footer-link">Business registration</div>
+              <div className="footer-link">Get prospectus</div>
+              <div className="footer-link">Partner with us</div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <div className="footer-copy">© 2026 A-PR Multi-Activities Co. Ltd. · Sudan Business Gate</div>
+            <div className="footer-copy">Advancing the Narrative. Verifying the Future.</div>
+          </div>
+        </div>
+        */}
+
+      </div>
     </main>
   );
 }

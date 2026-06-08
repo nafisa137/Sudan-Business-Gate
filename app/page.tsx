@@ -135,10 +135,7 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 <div className="hero">
   <div className="hero-grid"></div>
 
-  <div className="hero-tag">
-    <div className="hero-dot"></div>
-    Institutional Proposal · Khartoum, Sudan · 2026
-  </div>
+ 
 
   <div className="hero-h1">
     SUDAN BUSINESS GATE <em>(SBG)</em><br />
@@ -188,16 +185,15 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
   position: "relative",
   overflow: "hidden",
 }}>
-  <Image
-    src="/media/home3.webp"
-    alt=""
-    fill
-    priority
-    quality={80}
-    sizes="100vw"
-    style={{
-      objectFit: "cover",
-    }}/>
+  <div style={{
+    backgroundImage: "url('/media/home3.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
 </div>
 
 
@@ -207,7 +203,6 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 
 
 <Space height={40} />
-
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
   width: "100%",
@@ -215,16 +210,15 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
   position: "relative",
   overflow: "hidden",
 }}>
-  <Image
-    src="/media/home3.webp"
-    alt=""
-    fill
-    priority
-    quality={80}
-    sizes="100vw"
-    style={{
-      objectFit: "cover",
-    }}/>
+  <div style={{
+    backgroundImage: "url('/media/home.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
 </div>
 
         {/* ── WHO BENEFITS ── */}
