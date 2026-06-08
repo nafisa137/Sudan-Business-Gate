@@ -1,13 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./globals.css";
 import Link from "next/link";
-import Image from "next/image";
-
-
-import { useEffect, useRef } from "react";
-
-
 
 export default function Home() {
   // ── static data (no hooks) ──────────────────────────────────────────
@@ -21,6 +15,12 @@ export default function Home() {
     { label: "Project Management", amount: 10000, share: "4.4%", color: "#185FA5" },
     { label: "Research & Intelligence", amount: 7800, share: "3.4%", color: "#6B21A8" },
   ];
+ useEffect(() => {
+  crises.forEach(c => {
+    const img = new window.Image();
+    img.src = c.image;
+  });
+}, []);
 
   const crises = [
     {
@@ -51,7 +51,7 @@ Sudan's private sector needs a trusted, neutral, verifiable bridge between what 
       image: "/media/bu.webp",
     },
   ];
-
+ 
   const engines = [
     { title: "One Platform. Ten Engines. One Economy!", back: `The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.` },
     { title: "Not ten systems just One.", back: `Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.\nWhen a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.` },
@@ -135,24 +135,18 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
             Sudanese businesses and international capital.
           </div>
 <div className="crisis-slider">
-  <div
-    className="crisis-card"
-    onClick={nextCard}
-     style={{
-    backgroundImage: `url(${crises[activeCard]?.image || "/media/default.webp"})`,
-  }}
-  >
-    <div className="crisis-title">
-      {crises[activeCard].title}
+  {crises.map((c, i) => (
+    <div
+      key={i}
+      className={`crisis-card${i === activeCard ? " active" : ""}`}
+      style={{ backgroundImage: `url(${c.image})` }}
+    >
+      <div className="crisis-title">{c.title}</div>
+      <div className="crisis-body">{c.body}</div>
     </div>
-
-    <div className="crisis-body">
-      {crises[activeCard].body}
-    </div>
-
-    <div className="crisis-stat">
-      continue →
-    </div>
+  ))}
+  <div className="crisis-stat" onClick={nextCard}>
+    continue →
   </div>
 </div>
 </div>
