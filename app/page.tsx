@@ -2,7 +2,6 @@
 import { useState } from "react";
 import "./globals.css";
 import Link from "next/link";
-import { Space } from "lucide-react";
 import Image from "next/image";
 
 
@@ -132,62 +131,15 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 
 
 
-<div className="hero">
-  <div className="hero-grid"></div>
-
- 
-
-  <div className="hero-h1">
-    SUDAN BUSINESS GATE <em>(SBG)</em><br />
-    <span style={{ fontSize: "20px", fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>
-      A National Digital Transformation Programme<br />
-      for Private Sector Economic Infrastructure
-    </span>
-  </div>
-
-  <div className="hero-sub">
-    A formal proposal to establish SBG as the official digital operating infrastructure
-    of the Sudanese Businessmen and Employers Federation (SBEF) — modernizing member
-    services, rebuilding commercial registry data, and reconnecting Sudanese enterprises
-    with international capital, development finance, and multilateral procurement networks.
-  </div>
-
-  <div className="hero-btns">
-    <a href="#" className="btn-wf-gold">Register your business</a>
-    <a href="#" className="btn-wf-outline">View the prospectus →</a>
-  </div>
-
-  <div className="hero-stats">
-    <div className="hero-stat">
-      <div className="hs-num">25,000+</div>
-      <div className="hs-label">Enterprise records<br />within 12 months</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">$40M+</div>
-      <div className="hs-label">International contracts<br />matched by Year 2</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">7%</div>
-      <div className="hs-label">SBEF institutional<br />contribution</div>
-    </div>
-    <div className="hero-stat">
-      <div className="hs-num">Month 6</div>
-      <div className="hs-label">Full operational<br />self-sufficiency</div>
-    </div>
-  </div>
-</div>
-
-
-{/* ── PARALLAX IMAGE ── */}
+{/* ── PARALLAX IMAGE — replaced fixed attachment with scroll for perf ── */}
 <div style={{
   width: "100%",
-  height: "480px",
+  height: "360px",
   position: "relative",
   overflow: "hidden",
 }}>
   <div style={{
     backgroundImage: "url('/media/home3.webp')",
-    backgroundAttachment: "fixed",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -200,26 +152,8 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
 
 <div className="grid" id="cards"></div>
 
+<div style={{ height: "40px" }} />
 
-
-<Space height={40} />
-{/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/home.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
-</div>
 
         {/* ── WHO BENEFITS ── */}
         <div className="sec">
