@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import "./platform.css";
 import Link from "next/link";
 
@@ -53,15 +54,16 @@ export default function Platform() {
   position: "relative",
   overflow: "hidden",
 }}>
-  <div style={{
-    backgroundImage: "url('/media/home2.jpg')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
+  <Image
+      src="/media/home2.webp"
+      alt=""
+      fill
+      priority
+      quality={80}
+      sizes="100vw"
+      style={{
+        objectFit: "cover",
+      }} />
 </div>
 
       <section className="sec sec-alt">
@@ -168,15 +170,16 @@ export default function Platform() {
   position: "relative",
   overflow: "hidden",
 }}>
-  <div style={{
-    backgroundImage: "url('/media/home1.jpg')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
+  <Image
+      src="/media/home1.webp"
+      alt=""
+      fill
+      priority
+      quality={80}
+      sizes="100vw"
+      style={{
+        objectFit: "cover",
+      }} />
 </div>
 
 
@@ -412,15 +415,16 @@ width: "100vw",
    left: "50%",
     marginLeft: "-50vw",
 }}>
-  <div style={{
-    backgroundImage: "url('/media/home1.jpg')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100%",
-    height: "100%",
-  }} />
+  <Image
+      src="/media/home1.webp"
+      alt=""
+      fill
+      priority
+      quality={80}
+      sizes="100vw"
+      style={{
+        objectFit: "cover",
+      }} />
 </div>
 
 
