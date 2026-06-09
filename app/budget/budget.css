@@ -528,7 +528,7 @@ body { font-size: 13px; }
 .tier-silver {
   background: rgba(156,163,175,.08);
   border: .5px solid rgba(156,163,175,.25);
-  color: #9CA3AF;
+  color: #cad7ed;
 }
 
 .tier-silver:hover {
@@ -546,7 +546,7 @@ body { font-size: 13px; }
 }
 
 .tier-gold:hover {
-  background: rgba(200,146,42,.14);
+  background: rgba(232, 177, 75, 0.14);
   border-color: rgba(200,146,42,.5);
   transform: translateX(6px);
   box-shadow: -4px 0 20px rgba(200,146,42,.15), 0 8px 24px rgba(0,0,0,.15);
@@ -556,7 +556,7 @@ body { font-size: 13px; }
 .tier-platinum {
   background: rgba(96,165,250,.08);
   border: .5px solid rgba(96,165,250,.25);
-  color: #60A5FA;
+  color: #aacefa;
 }
 
 .tier-platinum:hover {
@@ -594,7 +594,7 @@ body { font-size: 13px; }
   margin-bottom: 4px;
   text-transform: uppercase;
   letter-spacing: .05em;
-  color: rgba(255,255,255,.35);
+  color: rgba(255, 255, 255, 0.697);
 }
 
 .tier-docs {

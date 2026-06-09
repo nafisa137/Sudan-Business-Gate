@@ -437,7 +437,7 @@ function ParallaxImage() {
               tier: "Tier 1", badge: "Silver", status: "Verified Identity",
               docs: "Self-reported corporate status cross-referenced with historical SBEF paper ledgers and local chamber records.",
               access: "National Business Directory · SBEF advisory alerts · Public profile visibility",
-              tierClass: "tier-silver", accessColor: "#9CA3AF",
+              tierClass: "tier-silver", accessColor: "#ffffff",
             },
             {
               tier: "Tier 2", badge: "Gold", status: "Document Confirmed",
@@ -449,7 +449,7 @@ function ParallaxImage() {
               tier: "Tier 3", badge: "Platinum", status: "Audited Compliance",
               docs: "Full beneficial ownership declaration, continuous sanctions screening (UN, OFAC, EU), mandatory physical site audit by chamber field units.",
               access: "DFI capital pipelines · Preferred multilateral vendor status · API data access",
-              tierClass: "tier-platinum", accessColor: "#60A5FA",
+              tierClass: "tier-platinum", accessColor: "#a2ccff",
             },
           ].map((t, i) => (
             <div key={i} className={`tier-card ${t.tierClass}`}>

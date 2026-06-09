@@ -266,46 +266,10 @@ SBG gives you a verified digital identity, free registration in Year 1, access t
         </div>
 
 
-        {/* ── CTA ── */}
+        
      
 
-        {/* ── FOOTER ── */}
-        <div className="footer-wf">
-          <div className="footer-grid">
-            <div>
-              <div className="footer-brand">▲ Sudan Business Gate</div>
-              <div className="footer-tagline">
-                A-PR Multi-Activities Co. Ltd.<br />
-                49th Street, Amarat, Khartoum, Sudan<br />
-                apr.excu@gmail.com · +249 91 238 1655
-              </div>
-            </div>
-            <div>
-              <div className="footer-col-title">Platform</div>
-              <div className="footer-link">Overview</div>
-              <div className="footer-link">Verification tiers</div>
-              <div className="footer-link">Procurement bridge</div>
-              <div className="footer-link">Technology</div>
-            </div>
-            <div>
-              <div className="footer-col-title">Company</div>
-              <div className="footer-link">About A-PR</div>
-              <div className="footer-link">Recommendations  & Financials</div>
-              <div className="footer-link">Roadmap</div>
-              <div className="footer-link">Contact</div>
-            </div>
-            <div>
-              <div className="footer-col-title">Register</div>
-              <div className="footer-link">Business registration</div>
-              <div className="footer-link">Get prospectus</div>
-              <div className="footer-link">Partner with us</div>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <div className="footer-copy">© 2026 A-PR Multi-Activities Co. Ltd. · Sudan Business Gate</div>
-            <div className="footer-copy">Advancing the Narrative. Verifying the Future.</div>
-          </div>
-        </div>
+      
 
       </div>
     </main>
