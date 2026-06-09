@@ -1,26 +1,64 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../globals.css";
 import Link from "next/link";
 import "./budget.css";
 export default function Budget() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const budgetCategories = [
     { label: "Technical Infrastructure", amount: 68000, share: "29.8%", color: "#185FA5" },
     { label: "Institutional Rollout", amount: 47100, share: "20.7%", color: "#0B1A3D" },
     { label: "Direct Working Capital", amount: 25100, share: "11.0%", color: "#C8922A" },
     { label: "Operational Contingency", amount: 28000, share: "12.3%", color: "#854F0B" },
-    { label: "Human Capital (Launch)", amount: 23500, share: "10.3%", color: "#3B6D11" },
+    { label: "Human Capital (Launch)", amount: 23500, share: "10.3%", color: "#f7f7f7" },
     { label: "Business Support Centre", amount: 18500, share: "8.1%", color: "#0F6E56" },
     { label: "Project Management", amount: 10000, share: "4.4%", color: "#185FA5" },
     { label: "Research & Intelligence", amount: 7800, share: "3.4%", color: "#6B21A8" },
+  ];
+ const risks = [
+    {
+      risk: "Low grassroots adoption in Phase 1",
+      likelihood: "Medium",
+      impact: "High",
+      mitigation:
+        "National Business Support Centre provides telephone-assisted registration. Physical chamber clinics deploy to low-connectivity areas. $0 entry tier maintained for all of Year 1.",
+    },
+    {
+      risk: "Extended infrastructure and connectivity disruption",
+      likelihood: "High",
+      impact: "High",
+      mitigation:
+        "Progressive Web App caches data offline. USSD gateway operates over basic GSM voice links. Primary hosting infrastructure located in Egypt — insulated from domestic grid failures.",
+    },
+    {
+      risk: "Data integrity failures and registration fraud",
+      likelihood: "Medium",
+      impact: "High",
+      mitigation:
+        "Tier 2 mandates human legal review. Tier 3 enforces multi-factor triangulation and physical site audits. Automated international sanctions screening runs continuously across all entities.",
+    },
+    {
+      risk: "Ecosystem governance disputes and institutional friction",
+      likelihood: "Low",
+      impact: "High",
+      mitigation:
+        "BOT agreement establishes clear parameters before launch. Joint Governance Board gives SBEF equal representation. Legacy SBEF revenue streams are ring-fenced.",
+    },
+    {
+      risk: "Delays in transitioning to Phase 2 marketplace",
+      likelihood: "Medium",
+      impact: "Medium",
+      mitigation:
+        "Transition triggered by documented registry density threshold — not a calendar date. Threshold supervised and confirmed by the Research Centre.",
+    },
   ];
 
   const revenueStreams = [
     { segment: "Premium Corporate", target: "Banks, telecoms, major exporters", fee: "$3,850 / yr", value: "Multi-user profile · B2B sourcing · Priority API integration", color: "#185FA5" },
     { segment: "Medium Enterprise", target: "Manufacturing, transport, agri-cooperatives", fee: "$350 / yr", value: "Verified badge · Procurement alerts · Sector index inclusion", color: "#0B1A3D" },
-    { segment: "Small & Micro Enterprise", target: "Local retail, artisans, smallholders", fee: "Free Yr 1 → $100/yr", value: "National directory · Call Centre support · Digital profile", color: "#3B6D11" },
+    { segment: "Small & Micro Enterprise", target: "Local retail, artisans, smallholders", fee: "Free Yr 1 → $100/yr", value: "National directory · Call Centre support · Digital profile", color: "#f7f7f7" },
     { segment: "Research Licensing", target: "Bilateral aid, dev banks, multilateral funds", fee: "$5,000–$15,000 / report", value: "Sector capacity maps · Labour indicators · Field monitoring data", color: "#C8922A" },
     { segment: "B2B Advertising", target: "Legal firms, insurers, logistics, energy", fee: "$200–$400 / mo", value: "Targeted placements in member dashboards & directory searches", color: "#6B21A8" },
   ];
@@ -33,13 +71,7 @@ export default function Budget() {
     { metric: "30%", label: "Compliance Progression", sub: "Tier 1 → Tier 2+ within first 12 months", icon: "✅" },
   ];
 
-  const risks = [
-    { risk: "Low Grassroots Adoption (Phase 1)", likelihood: "Medium", impact: "High", mitigation: "Call Centre telephone-assisted registration; physical chamber clinics; $0 entry tier in Year 1." },
-    { risk: "Infrastructure & Connectivity Disruption", likelihood: "High", impact: "High", mitigation: "Offline-first PWA caching; USSD gateway over GSM; Egypt-hosted infrastructure." },
-    { risk: "Data Integrity & Registration Fraud", likelihood: "Medium", impact: "High", mitigation: "Human legal verification at Tier 2; multi-factor triangulation; automated sanctions screening at Tier 3." },
-    { risk: "Governance Disputes & Institutional Friction", likelihood: "Low", impact: "High", mitigation: "Clear BOT agreement parameters; equal representation on Joint Governance Board; ring-fenced SBEF revenues." },
-    { risk: "Delays Transitioning to Phase 2 Marketplace", likelihood: "Medium", impact: "Medium", mitigation: "Evidence-based transition triggers linked to registry density metrics — not fixed calendar dates." },
-  ];
+
 
   const platformComponents = [
     { num: "01", name: "Digital Federation Platform", desc: "Primary SBEF admin interface — member databases, compliance, regional chamber coordination." },
@@ -61,27 +93,72 @@ export default function Budget() {
     { name: "Khartoum Stock Exchange", detail: "Synchronizes listed corporate entities with SBG profiles for an integrated view of Sudan's formal economy.", icon: "📊" },
   ];
 
-  const nextSteps = [
-    { step: "01", title: "Establish the Joint Governance Committee", detail: "Convene SBEF leadership, A-PR executives, and independent financial auditors to oversee technical execution and capital recovery protocols." },
-    { step: "02", title: "Finalize the BOT Transition Agreement", detail: "Ratify binding contractual milestones governing the technical lifecycle, data custodianship boundaries, and formal asset handover to SBEF." },
-    { step: "03", title: "Prepare Primary Hosting Environments", detail: "Initialize multi-region cloud servers in Egypt with security configurations and encryption parameters before entering any company records." },
-    { step: "04", title: "Authorize the Research Unit & Support Centre", detail: "Onboard the 5-person analytical team and launch voice support to begin data recovery from historical chamber ledgers and initiate grassroots adoption." },
-  ];
+ 
 
-  const likelihoodStyle = (level: string) => {
+  const likelihoodColor = (level: string) => {
     const map: Record<string, { bg: string; color: string }> = {
-      High: { bg: "rgba(220,38,38,.1)", color: "#DC2626" },
+      High: { bg: "rgba(220,38,38,.1)", color: "#f7f7f7" },
       Medium: { bg: "rgba(200,146,42,.1)", color: "#C8922A" },
-      Low: { bg: "rgba(59,109,17,.1)", color: "#3B6D11" },
+      Low: { bg: "rgba(59,109,17,.1)", color: "#f7f7f7" },
     };
-    const s = map[level] || map["Medium"];
-    return (
-      <span style={{ fontSize: "10px", fontWeight: 600, padding: "2px 8px", borderRadius: "999px", background: s.bg, color: s.color }}>
-        {level}
-      </span>
-    );
+    return map[level] || map["Medium"];
   };
 
+  const impactColor = (level: string) => {
+    const map: Record<string, { bg: string; color: string }> = {
+      High: { bg: "rgba(83, 90, 122, 0.1)", color: "#f7f7f7" },
+      Medium: { bg: "rgba(200,146,42,.1)", color: "#C8922A" },
+      Low: { bg: "rgba(59,109,17,.1)", color: "#f7f7f7" },
+    };
+    return map[level] || map["Medium"];
+  };
+
+function ParallaxImage() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const images = ["/media/home3.webp", "/media/b1.webp", "/media/home2.webp"];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const offset = rect.top * 0.25; // 0.25 = parallax strength
+      el.style.transform = `translateY(${offset}px)`;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
+      <div
+        ref={ref}
+        style={{
+          backgroundImage: `url('${images[currentImageIndex]}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "100%",
+          height: "130%",        // taller than container so movement has room
+          willChange: "transform",
+          transition: "background-image 0.8s ease-in-out",
+        }}
+      />
+    </div>
+  );
+}
+
+    
   return (
     <main>
 
@@ -104,6 +181,26 @@ export default function Budget() {
           <Link href="/budget" className="nl" onClick={() => setMenuOpen(false)}>Budget</Link>
         </div>
       </div>
+
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/bu.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
 
       {/* ── MACROECONOMIC PROBLEM STATEMENT ── */}
       <div className="macro-root">
@@ -202,9 +299,9 @@ export default function Budget() {
           <div style={{ fontSize: "10px", color: "rgba(255,255,255,.35)", marginTop: "4px" }}>Regulatory authority + institutional governance</div>
         </div>
         <div className="capital-card capital-card-green">
-          <div style={{ fontSize: "10px", color: "#3B6D11", marginBottom: "4px" }}>Total capital requirement</div>
-          <div style={{ fontSize: "22px", fontWeight: 700, color: "#3B6D11" }}>$228,000</div>
-          <div style={{ fontSize: "10px", color: "#3B6D11", opacity: .7, marginTop: "4px" }}>Full platform — not just a website</div>
+          <div style={{ fontSize: "10px", color: "#f7f7f7", marginBottom: "4px" }}>Total capital requirement</div>
+          <div style={{ fontSize: "22px", fontWeight: 700, color: "#f7f7f7" }}>$228,000</div>
+          <div style={{ fontSize: "10px", color: "#f7f7f7", opacity: .7, marginTop: "4px" }}>Full platform — not just a website</div>
         </div>
       </div>
 
@@ -231,6 +328,10 @@ export default function Budget() {
           </div>
         ))}
       </div>
+
+
+
+
 
       {/* ── BUDGET BREAKDOWN ── */}
       <div className="sec sec-dark">
@@ -285,7 +386,7 @@ export default function Budget() {
             { label: "→", sub: "", bg: "transparent", color: "#C8922A", arrow: true },
             { label: "Restored Marketplace", sub: "Compliance & Verified Access", bg: "#185FA5", color: "#fff", arrow: false },
             { label: "→", sub: "", bg: "transparent", color: "#C8922A", arrow: true },
-            { label: "Domestic Capital Retention", sub: "60–85% retained locally", bg: "#3B6D11", color: "#fff", arrow: false },
+            { label: "Domestic Capital Retention", sub: "60–85% retained locally",fontSize: "14px", bg: "#39663a", color: "#ffffff", arrow: false },
           ].map((node, i) => (
             node.arrow
               ? <div key={i} style={{ fontSize: "22px", color: "#C8922A", fontWeight: 700, display: "flex", alignItems: "center" }}>→</div>
@@ -303,21 +404,26 @@ export default function Budget() {
         </div>
       </div>
 
-      {/* ── PLATFORM ARCHITECTURE ── */}
-      <div className="sec sec-alt">
-        <div className="eyebrow">Platform architecture</div>
-        <div className="sec-h2">10 integrated components. One unified ecosystem.</div>
-        <div className="sec-sub">Rather than disconnected systems, SBG creates a single point of interaction between businesses, SBEF, development partners, investors, and public institutions.</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "10px" }}>
-          {platformComponents.map((c, i) => (
-            <div key={i} style={{ background: "#fff", border: ".5px solid #E5E7EB", borderRadius: "10px", padding: "16px", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: "10px", right: "14px", fontSize: "28px", fontWeight: 800, color: "#F3F4F6", letterSpacing: "-.02em", lineHeight: 1 }}>{c.num}</div>
-              <div style={{ fontSize: "13px", fontWeight: 700, color: "#0B1A3D", marginBottom: "6px", paddingRight: "32px" }}>{c.name}</div>
-              <div style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.6 }}>{c.desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/tec5.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
 
       {/* ── VERIFICATION TIERS ── */}
       {/* "Three tiers of trust — built for a fragmented environment" */}
@@ -407,61 +513,69 @@ export default function Budget() {
         </div>
       </div>
 
-      {/* ── RISK MATRIX ── */}
-      <div className="sec sec-alt">
-        <div className="eyebrow">Risk management</div>
-        <div className="sec-h2">5 identified risks — all mitigated by design</div>
-        <div className="sec-sub">Every operational risk has a defined institutional mitigation protocol built into the programme architecture from day one.</div>
-        <div style={{ borderRadius: "10px", overflow: "hidden", border: ".5px solid #E5E7EB" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 80px 80px 3fr", background: "#0B1A3D", padding: "10px 16px", gap: "0" }}>
-            {["Risk", "Likelihood", "Impact", "Mitigation"].map((h, i) => (
-              <div key={i} style={{ fontSize: "10px", color: "rgba(255,255,255,.5)", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase" }}>{h}</div>
-            ))}
+
+{/* ── PARALLAX IMAGE ── */}
+<div style={{
+  width: "100%",
+  height: "480px",
+  position: "relative",
+  overflow: "hidden",
+}}>
+  <div style={{
+    backgroundImage: "url('/media/tec5.webp')",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100%",
+  }} />
+</div>
+
+
+       {/* ── RISK MATRIX ── */}
+<div className="sec sec-dark">
+  <div className="eyebrow" style={{ fontSize: "21px"}}>Risk Matrix & Operational Mitigations</div>
+  <h2 className="sec-h2-light">We mapped the risks.<br />We built the mitigations.</h2>
+  <p className="sec-sub-light" style={{ marginBottom: "48px" }}>
+    Every infrastructure programme of this scale carries operational risk.
+    What sets SBG apart is that the risk framework was built before the
+    platform — not after the first failure.
+  </p>
+
+  <div className="rm-risk-list">
+    {risks.map((r, i) => (
+      <div className="rm-risk-row" key={i}>
+
+        <div className="rm-risk-left">
+          <div className="rm-risk-num">{String(i + 1).padStart(2, "0")}</div>
+          <div className="rm-risk-title">{r.risk}</div>
+          <div className="rm-risk-badges">
+            <span className="rm-risk-badge" style={{ background: likelihoodColor(r.likelihood).bg, color: likelihoodColor(r.likelihood).color }}>
+              {r.likelihood} likelihood
+            </span>
+            <span className="rm-risk-badge" style={{ background: impactColor(r.impact).bg, color: impactColor(r.impact).color }}>
+              {r.impact} impact
+            </span>
           </div>
-          {risks.map((r, i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "2fr 80px 80px 3fr", background: i % 2 === 0 ? "#fff" : "#FAFAFA", padding: "14px 16px", borderTop: ".5px solid #F3F4F6", alignItems: "start", gap: "0" }}>
-              <div style={{ fontSize: "14px", fontWeight: 500, color: "#0B1A3D", paddingRight: "12px", lineHeight: 1.5 }}>{r.risk}</div>
-              <div>{likelihoodStyle(r.likelihood)}</div>
-              <div>{likelihoodStyle(r.impact)}</div>
-              <div style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.6 }}>{r.mitigation}</div>
-            </div>
-          ))}
         </div>
-      </div>
 
-      {/* ── STRATEGIC INTEGRATIONS ── */}
-      <div className="sec sec-dark">
-        <div className="eyebrow" style={{ color: "#C8922A" }}>Strategic integrations</div>
-        <div className="sec-h2-light">Embedded into Sudan's regulatory & financial architecture</div>
-        <div className="sec-sub-light">SBG's API routing layer becomes the central hub for authenticated commercial data exchange across government and financial institutions.</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "12px" }}>
-          {integrations.map((item, i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,.04)", border: ".5px solid rgba(255,255,255,.08)", borderRadius: "10px", padding: "20px" }}>
-              <div style={{ fontSize: "28px", marginBottom: "10px" }}>{item.icon}</div>
-              <div style={{ fontSize: "13px", fontWeight: 700, color: "#fff", marginBottom: "8px" }}>{item.name}</div>
-              <div style={{ fontSize: "14px", color: "rgba(255,255,255,.5)", lineHeight: 1.65 }}>{item.detail}</div>
-            </div>
-          ))}
+        <div className="rm-risk-right">
+          <div className="rm-risk-mit-label">
+            <span className="rm-mit-dot" />
+            Mitigation
+          </div>
+          <div className="rm-risk-mitigation">{r.mitigation}</div>
         </div>
-      </div>
 
-      {/* ── RECOMMENDED NEXT STEPS (CTA) ── */}
-      <div className="sec sec-gold">
-        <div className="eyebrow">Immediate actions</div>
-        <div className="sec-h2">Four steps to launch upon approval</div>
-        <div className="sec-sub">A-PR recommends SBEF leadership and the technical team prioritize the following actions to initiate the Sudan Business Gate programme.</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "32px" }}>
-          {nextSteps.map((s, i) => (
-            <div key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start", background: "rgba(11,26,61,.05)", borderRadius: "10px", padding: "18px 20px" }}>
-              <div style={{ minWidth: "36px", height: "36px", borderRadius: "50%", background: "#0B1A3D", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#C8922A", flexShrink: 0 }}>{s.step}</div>
-              <div>
-                <div style={{ fontSize: "13px", fontWeight: 700, color: "#0B1A3D", marginBottom: "4px" }}>{s.title}</div>
-                <div style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.65 }}>{s.detail}</div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
+    ))}
+  </div>
+</div>
+
+
+
+
 
     </main>
   );

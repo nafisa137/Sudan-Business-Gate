@@ -24,6 +24,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+body { font-size: 13px; }
+
   .macro-root {
     background: #0B1A3D;
     padding: clamp(36px, 5vw, 56px) clamp(20px, 5vw, 44px);
@@ -100,6 +102,7 @@
     font-style: normal;
     background: linear-gradient(90deg, #C8922A 0%, #FFD56A 50%, #C8922A 100%);
     background-size: 200% auto;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmerText 3.5s linear infinite;
@@ -603,4 +606,96 @@
 .tier-access {
   font-size: 14px;
   line-height: 1.65;
+}
+
+
+
+/* ── RISK MATRIX ── */
+.rm-risk-list {
+  display: flex;
+  flex-direction: column;
+  border: .5px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.rm-risk-row {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: stretch;
+  border-bottom: .5px solid rgba(255,255,255,.06);
+  transition: background .2s ease;
+}
+
+.rm-risk-row:last-child { border-bottom: none; }
+.rm-risk-row:hover { background: rgba(255,255,255,.03); }
+
+.rm-risk-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 28px 28px 28px;
+  border-right: .5px solid rgba(255,255,255,.06);
+}
+
+.rm-risk-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: #C8922A;
+  letter-spacing: .1em;
+}
+
+.rm-risk-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.rm-risk-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.rm-risk-badge {
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 3px 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.rm-risk-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 32px;
+}
+
+.rm-risk-mit-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #C8922A;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.rm-mit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C8922A;
+  flex-shrink: 0;
+}
+
+.rm-risk-mitigation {
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  line-height: 1.8;
 }

@@ -10,43 +10,7 @@ import Image from "next/image";
 export default function Roadmap() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const risks = [
-    {
-      risk: "Low grassroots adoption in Phase 1",
-      likelihood: "Medium",
-      impact: "High",
-      mitigation:
-        "National Business Support Centre provides telephone-assisted registration. Physical chamber clinics deploy to low-connectivity areas. $0 entry tier maintained for all of Year 1.",
-    },
-    {
-      risk: "Extended infrastructure and connectivity disruption",
-      likelihood: "High",
-      impact: "High",
-      mitigation:
-        "Progressive Web App caches data offline. USSD gateway operates over basic GSM voice links. Primary hosting infrastructure located in Egypt — insulated from domestic grid failures.",
-    },
-    {
-      risk: "Data integrity failures and registration fraud",
-      likelihood: "Medium",
-      impact: "High",
-      mitigation:
-        "Tier 2 mandates human legal review. Tier 3 enforces multi-factor triangulation and physical site audits. Automated international sanctions screening runs continuously across all entities.",
-    },
-    {
-      risk: "Ecosystem governance disputes and institutional friction",
-      likelihood: "Low",
-      impact: "High",
-      mitigation:
-        "BOT agreement establishes clear parameters before launch. Joint Governance Board gives SBEF equal representation. Legacy SBEF revenue streams are ring-fenced.",
-    },
-    {
-      risk: "Delays in transitioning to Phase 2 marketplace",
-      likelihood: "Medium",
-      impact: "Medium",
-      mitigation:
-        "Transition triggered by documented registry density threshold — not a calendar date. Threshold supervised and confirmed by the Research Centre.",
-    },
-  ];
+ 
 
   const integrations = [
     {
@@ -243,45 +207,7 @@ export default function Roadmap() {
         </div>
       </div>
 
-  {/* ── RISK MATRIX ── */}
-<div className="sec sec-dark">
-  <div className="eyebrow">Risk Matrix & Operational Mitigations</div>
-  <h2 className="sec-h2-light">We mapped the risks.<br />We built the mitigations.</h2>
-  <p className="sec-sub-light" style={{ marginBottom: "48px" }}>
-    Every infrastructure programme of this scale carries operational risk.
-    What sets SBG apart is that the risk framework was built before the
-    platform — not after the first failure.
-  </p>
 
-  <div className="rm-risk-list">
-    {risks.map((r, i) => (
-      <div className="rm-risk-row" key={i}>
-
-        <div className="rm-risk-left">
-          <div className="rm-risk-num">{String(i + 1).padStart(2, "0")}</div>
-          <div className="rm-risk-title">{r.risk}</div>
-          <div className="rm-risk-badges">
-            <span className="rm-risk-badge" style={{ background: likelihoodColor(r.likelihood).bg, color: likelihoodColor(r.likelihood).color }}>
-              {r.likelihood} likelihood
-            </span>
-            <span className="rm-risk-badge" style={{ background: impactColor(r.impact).bg, color: impactColor(r.impact).color }}>
-              {r.impact} impact
-            </span>
-          </div>
-        </div>
-
-        <div className="rm-risk-right">
-          <div className="rm-risk-mit-label">
-            <span className="rm-mit-dot" />
-            Mitigation
-          </div>
-          <div className="rm-risk-mitigation">{r.mitigation}</div>
-        </div>
-
-      </div>
-    ))}
-  </div>
-</div>
 
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
