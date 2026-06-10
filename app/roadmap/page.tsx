@@ -104,6 +104,34 @@ export default function Roadmap() {
 
       <div className="section-wf">
 
+{/* ── PARALLAX IMAGE ── */}
+<div
+  style={{
+    width: "100%",
+    height: "480px",
+    position: "relative",
+    overflow: "hidden",
+  }}
+>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      position: "absolute",
+      top: "-20%",
+      left: 0,
+      width: "100%",
+      height: "140%",
+      objectFit: "cover",
+    }}
+  >
+    <source src="/media/roadv3.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<div className="ric-products-wrapper"></div>
         {/* ── PAGE HERO ── */}
         <div className="rm-hero">
           <div className="hero-grid" />
@@ -165,22 +193,33 @@ export default function Roadmap() {
             ))}
           </div>
 </div>
+
+
 {/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/home1.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+<div
+  style={{
     width: "100%",
-    height: "100%",
-  }} />
+    height: "480px",
+    position: "relative",
+    overflow: "hidden",
+  }}
+>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      position: "absolute",
+      top: "-20%",
+      left: 0,
+      width: "100%",
+      height: "140%",
+      objectFit: "cover",
+    }}
+  >
+    <source src="/media/roadv2.mp4" type="video/mp4" />
+  </video>
 </div>
 
 
@@ -210,22 +249,33 @@ export default function Roadmap() {
 
 
 {/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/img10.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+<div
+  style={{
     width: "100%",
-    height: "100%",
-  }} />
+    height: "480px",
+    position: "relative",
+    overflow: "hidden",
+  }}
+>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      position: "absolute",
+      top: "-20%",
+      left: 0,
+      width: "100%",
+      height: "140%",
+      objectFit: "cover",
+    }}
+  >
+    <source src="/media/roadv2.mp4" type="video/mp4" />
+  </video>
 </div>
+
+
 
 
         {/* ── IMMEDIATE ACTIONS ── */}

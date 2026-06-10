@@ -406,21 +406,30 @@ function ParallaxImage() {
 
 
 {/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/tec5.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+<div
+  style={{
     width: "100%",
-    height: "100%",
-  }} />
+    height: "480px",
+    position: "relative",
+    overflow: "hidden",
+  }}
+>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      position: "absolute",
+      top: "-20%",
+      left: 0,
+      width: "100%",
+      height: "140%",
+      objectFit: "cover",
+    }}
+  >
+    <source src="/media/budgetv2.mp4" type="video/mp4" />
+  </video>
 </div>
 
 
@@ -515,22 +524,32 @@ function ParallaxImage() {
 
 
 {/* ── PARALLAX IMAGE ── */}
-<div style={{
-  width: "100%",
-  height: "480px",
-  position: "relative",
-  overflow: "hidden",
-}}>
-  <div style={{
-    backgroundImage: "url('/media/tec5.webp')",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+<div
+  style={{
     width: "100%",
-    height: "100%",
-  }} />
+    height: "480px",
+    position: "relative",
+    overflow: "hidden",
+  }}
+>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      position: "absolute",
+      top: "-20%",
+      left: 0,
+      width: "100%",
+      height: "140%",
+      objectFit: "cover",
+    }}
+  >
+    <source src="/media/budgetv2.mp4" type="video/mp4" />
+  </video>
 </div>
+
 
 
        {/* ── RISK MATRIX ── */}

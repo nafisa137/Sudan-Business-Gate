@@ -105,7 +105,7 @@ function ParallaxImage() {
   overflow: "hidden",
 }}>
   <div style={{
-    backgroundImage: "url('/media/img17.webp')",
+    backgroundImage: "url('/media/plat4.webp')",
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -452,28 +452,30 @@ function ParallaxImage() {
     </div>
 
   </div>
-
+</div>
 
 
 
 
 {/* ── PARALLAX IMAGE ── */}
 <div style={{
-  width: "100%",
+  width: "100wv",
   height: "480px",
   position: "relative",
   overflow: "hidden",
 }}>
   <div style={{
-    backgroundImage: "url('/media/home1.webp')",
+    backgroundImage: "url('/media/plat4.webp')",
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    width: "100%",
+    width: "100wv",
     height: "100%",
   }} />
 </div>
+
+<div className="ric-products-wrapper">
 
 {/* ── PROCUREMENT BRIDGE ── */}
 <div

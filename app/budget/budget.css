@@ -609,8 +609,8 @@ body { font-size: 13px; }
 }
 
 
-
 /* ── RISK MATRIX ── */
+
 .rm-risk-list {
   display: flex;
   flex-direction: column;
@@ -624,17 +624,43 @@ body { font-size: 13px; }
   grid-template-columns: 280px 1fr;
   align-items: stretch;
   border-bottom: .5px solid rgba(255,255,255,.06);
-  transition: background .2s ease;
+
+  /* Slide-in reveal */
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rmReveal .7s ease forwards;
+
+  /* Smooth card lift */
+  transition:
+    background .25s ease,
+    transform .35s ease,
+    box-shadow .35s ease;
 }
 
-.rm-risk-row:last-child { border-bottom: none; }
-.rm-risk-row:hover { background: rgba(255,255,255,.03); }
+/* staggered reveal */
+.rm-risk-row:nth-child(1){ animation-delay:.1s; }
+.rm-risk-row:nth-child(2){ animation-delay:.2s; }
+.rm-risk-row:nth-child(3){ animation-delay:.3s; }
+.rm-risk-row:nth-child(4){ animation-delay:.4s; }
+.rm-risk-row:nth-child(5){ animation-delay:.5s; }
+
+.rm-risk-row:last-child {
+  border-bottom: none;
+}
+
+.rm-risk-row:hover {
+  background: rgba(255,255,255,.03);
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.15),
+    0 0 20px rgba(200,146,42,.08);
+}
 
 .rm-risk-left {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 28px 28px 28px 28px;
+  padding: 28px;
   border-right: .5px solid rgba(255,255,255,.06);
 }
 
@@ -660,12 +686,35 @@ body { font-size: 13px; }
 }
 
 .rm-risk-badge {
+  position: relative;
+  overflow: hidden;
+
   font-size: 10px;
   font-weight: 700;
   border-radius: 20px;
   padding: 3px 10px;
   letter-spacing: .05em;
   text-transform: uppercase;
+}
+
+/* Animated badge shimmer */
+.rm-risk-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.4),
+    transparent
+  );
+}
+
+.rm-risk-row:hover .rm-risk-badge::before {
+  animation: rmShimmer .8s ease;
 }
 
 .rm-risk-right {
@@ -686,16 +735,53 @@ body { font-size: 13px; }
   text-transform: uppercase;
 }
 
+/* Pulsing mitigation dot */
 .rm-mit-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #C8922A;
   flex-shrink: 0;
+
+  animation: rmPulse 2s infinite;
 }
 
 .rm-risk-mitigation {
   font-size: 16px;
-  color: rgb(255, 255, 255);
+  color: rgb(255,255,255);
   line-height: 1.8;
+}
+
+/* ── ANIMATIONS ── */
+
+@keyframes rmReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rmPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(200,146,42,.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(200,146,42,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(200,146,42,0);
+  }
+}
+
+@keyframes rmShimmer {
+  from {
+    left: -120%;
+  }
+  to {
+    left: 160%;
+  }
 }
