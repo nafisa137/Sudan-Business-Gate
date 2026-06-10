@@ -1,0 +1,680 @@
+/* ═══════════════════════════════════════════════════════════
+   OrgFlipGrid.css — Gallery: spotlight + deck layout
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Section shell ──────────────────────────────────────── */
+.ofc-gallery {
+  background: #ffffff;
+  border-radius: 20px;
+  /* increased padding to maximize section area */
+  padding: 64px 48px 56px;
+  display: flex;
+  /* use responsive full width but constrain via max-width so it doesn't overflow screens */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  /* larger gap so spotlight and deck have more whitespace */
+  gap: 140px;
+  min-height: 1100px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+}
+.ofc-gallery.ofc-revealed {
+  opacity: 1;
+  transform: translateY(0);
+
+}
+
+/* subtle grid texture */
+.ofc-gallery::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+    min-width: 1200px;
+  min-height: 1200px;
+  background-image:
+    linear-gradient(rgba(0,0,0,.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.024) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ─── Spotlight zone ─────────────────────────────────────── */
+.ofc-spotlight {
+  position: relative;
+  width: 400px;
+  height: 420px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* create extra whitespace between the active (spotlight) card and the deck of stacked cards */
+.ofc-spotlight {
+  margin-bottom: 80px;
+}
+
+/* Empty state prompt */
+.ofc-spotlight-empty {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  border: 1.5px dashed rgba(0,0,0,.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ofc-spotlight-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(0,0,0,.28);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: .02em;
+}
+.ofc-spotlight-hint svg {
+  opacity: .5;
+}
+
+/* ─── Deck zone ──────────────────────────────────────────── */
+.ofc-deck {
+  position: relative;
+  width: 320px;
+  min-height: 120px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* "Return to deck" button */
+.ofc-deck-return {
+  position: absolute;
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(200,146,42,.8);
+  letter-spacing: .04em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.ofc-deck-return:hover {
+  color: #C8922A;
+  background: rgba(200,146,42,.08);
+}
+
+/* ─── Scene (the perspective wrapper for each card) ─────── */
+.ofc-scene {
+  position: absolute;
+  width: 320px;
+  height: 420px;
+  border-radius: 14px;
+  outline: none;
+  will-change: transform, box-shadow;
+  transform-origin: center center;
+}
+
+/* ── Active (spotlight) card ─────────────────────────────── */
+.ofc-scene.ofc-active {
+  position: relative;          /* sits in spotlight flow */
+  cursor: pointer;
+  z-index: 10;
+  min-width: 750px; 
+  min-height: 510px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.22),
+    0 12px 30px rgba(0,0,0,.14),
+    0 0 0 1px rgba(255,255,255,.06);
+  animation: ofc-fly-in .65s cubic-bezier(.34,1.08,.64,1) forwards;
+}
+@keyframes ofc-fly-in {
+  from {
+    opacity: 0;
+    transform: translateY(160px) scale(.88) rotateX(8deg);
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.22),
+      0 12px 30px rgba(0,0,0,.14),
+      0 0 0 1px rgba(255,255,255,.06);
+  }
+}
+
+/* Subtle float pulse when active and not flipped */
+.ofc-scene.ofc-active:not(.ofc-flipped) {
+  animation: ofc-fly-in .65s cubic-bezier(.34,1.08,.64,1) forwards,
+             ofc-float 4s ease-in-out 0.65s infinite;
+}
+@keyframes ofc-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ── Stacked (deck) cards ────────────────────────────────── */
+.ofc-scene.ofc-stacked {
+  cursor: pointer;
+  z-index: var(--stack-z, 1);
+  transform:
+    translateX(var(--stack-x, 0px))
+    rotate(var(--stack-r, 0deg))
+    scale(var(--stack-s, 1));
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.18),
+    0 1px 4px rgba(0,0,0,.1);
+  transition:
+    transform .55s cubic-bezier(.34,1.1,.64,1),
+    box-shadow .4s ease;
+}
+.ofc-scene.ofc-stacked:hover {
+  transform:
+    translateX(var(--stack-x, 0px))
+    rotate(var(--stack-r, 0deg))
+    scale(calc(var(--stack-s, 1) + 0.025))
+    translateY(-6px);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,.26),
+    0 4px 12px rgba(0,0,0,.14);
+  z-index: 50;
+}
+.ofc-scene.ofc-stacked:focus-visible {
+  box-shadow: 0 0 0 3px #C8922A, 0 4px 16px rgba(0,0,0,.18);
+}
+.ofc-scene.ofc-active:focus-visible {
+  box-shadow: 0 0 0 3px #C8922A,
+    0 30px 80px rgba(0,0,0,.22),
+    0 12px 30px rgba(0,0,0,.14);
+}
+
+/* ─── Inner (3-D rotating element) ──────────────────────── */
+.ofc-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .68s cubic-bezier(.34,1.05,.64,1);
+  border-radius: 14px;
+}
+.ofc-scene.ofc-flipped .ofc-inner {
+  transform: rotateY(180deg);
+}
+
+/* perspective on the scene itself */
+.ofc-scene {
+  perspective: 1000px;
+}
+
+/* ─── Shared face ────────────────────────────────────────── */
+.ofc-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FRONT FACE
+   ═══════════════════════════════════════════════════════════ */
+.ofc-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 18px 16px;
+  border: 0.5px solid rgba(255,255,255,.1);
+}
+
+/* Full-bleed photo */
+.ofc-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  pointer-events: none;
+  opacity: .8;
+}
+
+/* Gradient overlay so text is always legible */
+.ofc-photo-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(5,10,25,.18) 0%,
+    rgba(5,10,25,.08) 35%,
+    rgba(5,10,25,.72) 70%,
+    rgba(5,10,25,.95) 100%
+  );
+  pointer-events: none;
+}
+
+/* Decorative watermark glyph */
+.ofc-glyph {
+  position: absolute;
+  bottom: -16px;
+  right: -4px;
+  font-size: 130px;
+  font-weight: 900;
+  color: rgba(255,255,255,.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -.04em;
+}
+
+/* Top row: country + flag */
+.ofc-front-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+.ofc-country {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #0B1A3D;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+.ofc-flag {
+  font-size: 22px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,.5));
+}
+
+/* Bottom content */
+.ofc-front-bottom {
+  position: relative;
+  z-index: 2;
+}
+.ofc-name {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.ofc-full {
+  font-size: 12px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.ofc-front-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.ofc-ftag {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  background: rgba(255,255,255,.08);
+  border: 0.5px solid rgba(255,255,255,.14);
+  border-radius: 20px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.ofc-scene.ofc-active:hover:not(.ofc-flipped) .ofc-ftag {
+  background: rgba(200,146,42,.18);
+  border-color: rgba(200,146,42,.35);
+  color: #FAC775;
+}
+
+/* Flip hint (active card only) */
+.ofc-hint {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(200,146,42,.8);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  z-index: 3;
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity .2s, transform .2s;
+}
+.ofc-scene.ofc-active:hover:not(.ofc-flipped) .ofc-hint {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Shimmer on hover */
+.ofc-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.06) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform .65s ease;
+  pointer-events: none;
+  border-radius: 14px;
+}
+.ofc-scene:hover:not(.ofc-flipped) .ofc-shimmer {
+  transform: translateX(100%);
+}
+
+/* Stacked cards: only show a strip at the bottom of the face */
+.ofc-scene.ofc-stacked .ofc-front {
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BACK FACE — fixed layout, everything fits without scrolling
+   ═══════════════════════════════════════════════════════════ */
+.ofc-back {
+  transform: rotateY(180deg);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid #E2E4E8;
+}
+
+/* Gold accent bar */
+.ofc-back-bar {
+  height: 3px;
+  flex-shrink: 0;
+  border-radius: 14px 14px 0 0;
+}
+
+/* Main content area — no overflow:auto, fixed layout */
+.ofc-back-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 10px;
+  gap: 0;
+  overflow: hidden; /* content is sized to fit exactly */
+}
+
+/* Header row */
+.ofc-back-hd {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+.ofc-back-hd-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+}
+.ofc-back-flag {
+  font-size: 22px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+.ofc-back-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0B1A3D;
+  letter-spacing: -.015em;
+  line-height: 1.1;
+}
+.ofc-back-full {
+  display: block;
+  font-size: 14px;
+  color: #8896A8;
+  font-weight: 400;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Icon buttons row */
+.ofc-back-hd-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.ofc-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #F7F8FA;
+  border: 0.5px solid #E2E4E8;
+  color: #8896A8;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+.ofc-icon-btn:hover {
+  background: #FAEEDA;
+  border-color: rgba(200,146,42,.4);
+  color: #C8922A;
+}
+.ofc-return-btn:hover {
+  background: #FEE2E2;
+  border-color: rgba(200,60,60,.3);
+  color: #C02020;
+}
+
+/* Subtitle */
+.ofc-back-sub {
+  font-size: 14px;
+  font-weight: 600;
+  color: #C8922A;
+  letter-spacing: .01em;
+  line-height: 1.3;
+  margin-bottom: 7px;
+  flex-shrink: 0;
+}
+
+/* Divider */
+.ofc-back-divider {
+  height: 0.5px;
+  background: #E2E4E8;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* Content blocks — side by side to save vertical space */
+.ofc-back-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+.ofc-block-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8896A8;
+  margin-bottom: 3px;
+}
+.ofc-block-body {
+  font-size: 14.5px;
+  color: #0B1A3D;
+  line-height: 1.55;
+}
+
+/* Lesson box */
+.ofc-lesson {
+  background: #FAEEDA;
+  border-left: 2px solid #C8922A;
+  border-radius: 0 5px 5px 0;
+  padding: 7px 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+.ofc-lesson-eyebrow {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #C8922A;
+  margin-bottom: 3px;
+}
+.ofc-lesson-text {
+  font-size: 14.5px;
+  color: #633806;
+  line-height: 1.5;
+}
+
+/* Tags */
+.ofc-back-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.ofc-btag {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #0c172d;
+  background: #F7F8FA;
+  border: 0.5px solid #E2E4E8;
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+/* ─── Dark mode ──────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  .ofc-gallery {
+    background: #0f1218;
+  }
+  .ofc-gallery::before {
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  }
+  .ofc-spotlight-empty {
+    border-color: rgba(255,255,255,.1);
+  }
+  .ofc-spotlight-hint { color: rgba(255,255,255,.25); }
+
+  .ofc-back {
+    background: #111827;
+    border-color: rgba(255,255,255,.1);
+  }
+  .ofc-back-name   { color: #ffffff; }
+  .ofc-back-full   { color: rgba(255,255,255,.4); }
+  .ofc-back-sub    { color: #FAC775; }
+  .ofc-back-divider { background: rgba(255,255,255,.1); }
+  .ofc-block-label  { color: rgba(255,255,255,.35); }
+  .ofc-block-body   { color: rgba(255,255,255,.72); }
+  .ofc-lesson {
+    background: rgba(200,146,42,.12);
+    border-left-color: #C8922A;
+  }
+  .ofc-lesson-eyebrow { color: #FAC775; }
+  .ofc-lesson-text    { color: #FAC775; }
+  .ofc-btag {
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.12);
+    color: rgba(255,255,255,.55);
+  }
+  .ofc-icon-btn {
+    background: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.14);
+    color: rgba(255,255,255,.45);
+  }
+  .ofc-icon-btn:hover {
+    background: rgba(200,146,42,.15);
+    border-color: rgba(200,146,42,.4);
+    color: #FAC775;
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .ofc-gallery {
+    padding: 32px 16px 40px;
+    border-radius: 0;
+    gap: 32px;
+  }
+  .ofc-spotlight,
+  .ofc-deck,
+  .ofc-scene {
+    width: 288px;
+  }
+  .ofc-scene {
+    height: 380px;
+  }
+  .ofc-spotlight {
+    height: 380px;
+  }
+  .ofc-name { font-size: 22px; }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ofc-gallery,
+  .ofc-inner,
+  .ofc-shimmer,
+  .ofc-hint,
+  .ofc-ftag,
+  .ofc-icon-btn,
+  .ofc-scene.ofc-stacked {
+    transition: none !important;
+    animation: none !important;
+  }
+  .ofc-scene.ofc-flipped .ofc-inner {
+    transform: none;
+  }
+  .ofc-face { position: static; }
+  .ofc-front { display: none; }
+  .ofc-scene.ofc-flipped .ofc-front { display: none; }
+  .ofc-back {
+    transform: none;
+    position: static;
+    display: flex;
+  }
+  .ofc-scene:not(.ofc-flipped) .ofc-back  { display: none; }
+  .ofc-scene:not(.ofc-flipped) .ofc-front { display: flex; }
+}

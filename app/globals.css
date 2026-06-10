@@ -4,7 +4,40 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font-sans); font-size: 13px; overflow-x: hidden; }
 html { scroll-behavior: smooth; }
-
+:root {
+  --navy: #0B1A3D;
+  --navy-mid: #132254;
+  --navy-dark: #07112A;
+  --navy-light: rgba(255,255,255,.06);
+  --navy-hover: rgba(255,255,255,.09);
+  --gold: #C8922A;
+  --gold-light: #FAEEDA;
+  --gold-mid: #FAC775;
+  --gold-glow: rgba(200,146,42,.18);
+  --gold-border: rgba(200,146,42,.35);
+  --silver-bg: #F1EFE8;
+  --silver-bd: #D3D1C7;
+  --text-body: #4A5568;
+  --text-head: #0B1A3D;
+  --text-muted: #8896A8;
+  --border: #E2E4E8;
+  --border-soft: #F0F1F4;
+  --surface: #F7F8FA;
+  --surface-2: #F0F1F5;
+  --white: #ffffff;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 120ms ease;
+  --t-base: 200ms ease;
+  --t-slow: 360ms var(--ease-out);
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --shadow-card: 0 2px 12px rgba(11,26,61,.06), 0 1px 3px rgba(11,26,61,.04);
+  --shadow-hover: 0 8px 32px rgba(11,26,61,.10), 0 2px 8px rgba(11,26,61,.06);
+  --shadow-gold: 0 4px 24px rgba(200,146,42,.18);
+}
 /* ── LAYOUT ── */
 .wf { width: 100%; border: .5px solid var(--color-border-secondary); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }
 .section-wf { padding: 0; max-width: 100%; overflow-x: hidden; }

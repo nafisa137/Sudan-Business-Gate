@@ -54,7 +54,7 @@ Sudan's private sector needs a trusted, neutral, verifiable bridge between what 
  
   const engines = [
     { title: "One Platform. Ten Engines. One Economy!", back: `The challenge facing Sudan's private sector is not a technology gap. It is not simply a documentation problem. It is a coordination failure — and fixing it requires more than a database or a portal. The Sudan Business Gate is designed as a unified digital ecosystem: a single point of interaction where businesses, government institutions, development partners, investors, and procurement entities can all operate from the same trusted infrastructure.` },
-    { title: "Not ten systems just One.", back: `Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.\nWhen a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.` },
+    { title: "One system", back: `Most digital transformation efforts produce a collection of disconnected tools — a registration system here, a tender portal there, a reporting dashboard somewhere else. SBG is architected differently. Every component shares the same data spine, the same verification layer, and the same identity framework.\nWhen a business registers, it is simultaneously visible in the National Directory, eligible for procurement matching, accessible to development finance institutions, and connected to SBEF's administrative network. One action. Full ecosystem access.` },
   ];
 useEffect(() => {
   crises.forEach(c => {
@@ -185,7 +185,7 @@ Designed as a comprehensive, modern business ecosystem, the proposed programme i
             ))}
           </div>
           <div className="cs-next">
-            {activeCard === crises.length - 1 ? "restart" : "tap anywhere to continue"} →
+            {activeCard === crises.length - 1 ? "restart" : " "} →
           </div>
         </div>
       </div>
@@ -259,8 +259,8 @@ SBG gives you a verified digital identity, free registration in Year 1, access t
               <div className="stake-icon" style={{ background: "#E1F5EE", color: "#0F6E56" }}>
                 <i className="ti ti-briefcase" aria-hidden="true"></i>
               </div>
-              <div className="stake-title">Business owners</div>
-              <div className="stake-body">Free registration in Year 1, USSD access, SBG badge, tender matching, and call centre support.</div>
+              <div className="stake-title">International businesses</div>
+              <div className="stake-body">Connect with verified, AML/CTF-compliant Sudanese suppliers. Gain transparent access to local procurement opportunities and secure, data-driven partnerships to support Sudan’s economic recovery.</div>
             </div>
           </div>
         </div>

@@ -165,7 +165,7 @@ function ParallaxImage() {
       {/* ── SBEF MODERNIZATION ── */}
 <div className="sec sec-dark">
   <div className="eyebrow" style={{ color: "#C8922A" }}>Institutional modernization</div>
-  <div className="sec-h2-light">SBEF doesn't just host SBG.<br />SBG transforms SBEF.</div>
+  <div className="sec-h2-light">SBG will transform the Federation</div>
   <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", marginTop: "32px" }}>
 
     <div style={{ flex: 2, minWidth: "260px" }}>
