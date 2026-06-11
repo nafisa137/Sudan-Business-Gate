@@ -2,8 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./globals.css";
 import Link from "next/link";
+import Nav from "./components/Nav";
 
-export default function Home() {
+export default function Home () {
   // ── static data (no hooks) ──────────────────────────────────────────
   const budgetCategories = [
     { label: "Technical Infrastructure", amount: 68000, share: "29.8%", color: "#185FA5" },
@@ -65,7 +66,6 @@ useEffect(() => {
   // ── hooks (must all be together, after data, before return) ─────────
   const [activeCard, setActiveCard] = useState(0);
   const [flipped, setFlipped] = useState<number | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const nextCard = () => setActiveCard((prev) => (prev + 1) % crises.length);
   const toggle = (i: number) => setFlipped(flipped === i ? null : i);
@@ -82,7 +82,7 @@ function ParallaxImage() {
 
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
-      const offset = rect.top * 0.25; // 0.25 = parallax strength
+      const offset = -rect.top * 0.25; // 0.25 = parallax strength, negative to shrink from top when scrolling
       el.style.transform = `translateY(${offset}px)`;
     };
 
@@ -98,7 +98,7 @@ function ParallaxImage() {
   }, []);
 
   return (
-    <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: "580px", overflow: "hidden" }}>
       <div
         ref={ref}
         style={{
@@ -106,7 +106,7 @@ function ParallaxImage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "100%",
-          height: "130%",        // taller than container so movement has room
+          minHeight: "580px",        // taller than container so movement has room
           willChange: "transform",
           transition: "background-image 0.8s ease-in-out",
         }}
@@ -117,31 +117,7 @@ function ParallaxImage() {
   return (
     <main>
 
-     {/* ── NAV ── */}
-      <div className="nav-wf">
-        <div className="nav-logo-wf">
-          <div className="logo-mark"><div className="logo-tri"></div></div>
-          <div className="nav-brand">SBG <span>Sudan Business Gate</span></div>
-        </div>
-        <button
-          className="nav-hamburger"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <i className={`ti ${menuOpen ? "ti-x" : "ti-menu-2"}`} aria-hidden="true" />
-        </button>
-        <div className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
-          <Link href="/" className="nl" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/platform" className="nl" onClick={() => setMenuOpen(false)}>Platform</Link>
-          <Link href="/roadmap" className="nl" onClick={() => setMenuOpen(false)}>Roadmap</Link>
-          <Link href="/about" className="nl" onClick={() => setMenuOpen(false)}>About</Link>
-          <Link href="/register" className="nl" onClick={() => setMenuOpen(false)}>Register</Link>
-          <Link href="/recommendation" className="nl" onClick={() => setMenuOpen(false)}>Recommendation</Link>
-          <Link href="/budget" className="nl" onClick={() => setMenuOpen(false)}>Budget</Link>
-
-        </div>
-      </div>
-
+    <Nav />
       <div className="section-wf">
 
         {/* ── HERO ── */}
