@@ -30,7 +30,7 @@ function ParallaxImage() {
   const ref = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  const images = ["/media/img6.webp", "/media/img7.webp", "/media/img4.webp"];
+  const images = ["/media/img14.webp", "/media/img15.webp", "/media/img16.webp"];
 
   useEffect(() => {
     const el = ref.current;
