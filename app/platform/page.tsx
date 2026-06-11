@@ -30,7 +30,7 @@ function ParallaxImage() {
   const ref = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  const images = ["/media/img14.webp", "/media/img15.webp", "/media/img16.webp"];
+  const images = ["/media/img6.webp", "/media/img7.webp", "/media/img4.webp"];
 
   useEffect(() => {
     const el = ref.current;
@@ -38,7 +38,7 @@ function ParallaxImage() {
 
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
-      const offset = rect.top * 0.25; // 0.25 = parallax strength
+      const offset = -rect.top * 0.25; // 0.25 = parallax strength, negative to shrink from top when scrolling
       el.style.transform = `translateY(${offset}px)`;
     };
 
@@ -49,20 +49,21 @@ function ParallaxImage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 4000); // Change image every 5 seconds
+    }, 5000); // Change image every 5 seconds
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ width: "100%", height: "480px", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: "580px", overflow: "hidden" }}>
       <div
         ref={ref}
+        className="parallax-section"
         style={{
           backgroundImage: `url('${images[currentImageIndex]}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "100%",
-          height: "130%",        // taller than container so movement has room
+          minHeight: "580px",        // taller than container so movement has room
           willChange: "transform",
           transition: "background-image 0.8s ease-in-out",
         }}

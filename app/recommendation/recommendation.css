@@ -431,7 +431,9 @@ body {
   .nav-links { display: none; flex-direction: column; position: absolute; top: 52px; left: 0; right: 0; background: var(--navy-dark); padding: 12px 16px; gap: 2px; border-bottom: .5px solid rgba(255,255,255,.1) }
   .nav-links-open { display: flex }
   .nav-hamburger { display: flex; align-items: center; justify-content: center }
-  .sec, .sec-alt, .sec-dark { padding: 44px 24px }
+.sec, .sec-alt, .sec-dark {
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px);
+}
   .sec-divider, .sec-divider-dark { margin: 0 24px }
   .h2, .h2-light { font-size: 21px }
   .hero-stats { flex-direction: column }

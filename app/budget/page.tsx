@@ -181,6 +181,7 @@ function ParallaxImage() {
     backgroundRepeat: "no-repeat",
     width: "100%",
     height: "100%",
+    
   }} />
 </div>
 
@@ -321,7 +322,7 @@ function ParallaxImage() {
       <div className="sec sec-dark">
         <div className="eyebrow" style={{ color: "#C8922A" }}>Budget breakdown</div>
         <div className="sec-h2-light" style={{ marginBottom: "20px" }}>$228,000 total — 21 line items across 8 categories</div>
-        <div style={{ overflowX: "auto" }}>
+        <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", color: "rgba(255,255,255,.85)" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(255,255,255,.12)" }}>

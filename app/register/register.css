@@ -98,4 +98,8 @@ body{font-family:var(--font-sans)}
 .next-steps{background:#F7F8FA;border-radius:8px;padding:13px 16px;text-align:left}
 .ns-item{font-size:10px;color:#4A5568;padding:3px 0;display:flex;gap:6px;align-items:center}
 .ns-dot{width:6px;height:6px;background:#C8922A;border-radius:50%;flex-shrink:0}
-@media(max-width:600px){.phase-cards,.about-split,.bot-row{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.tier-select-row{flex-direction:column}}
+@media(max-width:600px){.phase-cards,.about-split,.bot-row{grid-template-columns:1fr}}
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .tier-select-row { flex-direction: column; }
+}

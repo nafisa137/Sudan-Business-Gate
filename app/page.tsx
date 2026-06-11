@@ -101,6 +101,7 @@ function ParallaxImage() {
     <div style={{ width: "100%", height: "580px", overflow: "hidden" }}>
       <div
         ref={ref}
+        className="parallax-section"
         style={{
           backgroundImage: `url('${images[currentImageIndex]}')`,
           backgroundSize: "cover",
