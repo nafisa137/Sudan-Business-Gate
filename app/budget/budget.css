@@ -1,10 +1,11 @@
 /* ── BUDGET ── */
 .budget-magic::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(circle at 20% 20%, rgba(200,146,42,.12), transparent 30%), radial-gradient(circle at 80% 70%, rgba(24,95,165,.12), transparent 35%); pointer-events: none; }
+.budget-magic { overflow-x: auto; }
 .budget-row { opacity: 1; transition: background .2s ease, transform .2s ease; }
 .budget-row:hover { background: rgba(255,255,255,.04); transform: scale(1.01); }
 .budget-bar { animation: fillGlow .8s ease-out; box-shadow: 0 0 8px rgba(200,146,42,.3); }
-.budget-magic table td { font-size: 14px; }
-.budget-magic table th { font-size: 14px; text-transform: uppercase; }
+.budget-magic table td { font-size: clamp(10px, 1.5vw, 13px); }
+.budget-magic table th { font-size: clamp(10px, 1.5vw, 13px); text-transform: uppercase; }
 .budget-magic table tbody tr { transition: background .2s ease; }
 .budget-magic { box-shadow: 0 0 30px rgba(200,146,42,.08); }
 
@@ -783,5 +784,86 @@ body { font-size: 13px; }
   }
   to {
     left: 160%;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-strip {
+    flex-direction: column;
+  }
+
+  .stat-cell {
+    padding: 18px 16px;
+  }
+
+  .thesis {
+    padding: clamp(18px, 4vw, 24px);
+  }
+
+  .leakage-header,
+  .legend-item,
+  .fund-tag,
+  .bot-label {
+    font-size: 13px;
+  }
+
+  .capital-card,
+  .milestone-item,
+  .toc-node,
+  .tier-card {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .tier-card {
+    gap: 16px;
+  }
+
+  .rm-risk-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rm-risk-left,
+  .rm-risk-right {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-strip {
+    gap: 12px;
+  }
+
+  .stat-cell {
+    padding: 14px 12px;
+  }
+
+  .thesis,
+  .rm-risk-row,
+  .tier-card {
+    padding: 16px;
+  }
+
+  .rm-risk-left,
+  .rm-risk-right {
+    padding: 16px;
+  }
+
+  .rm-risk-num,
+  .rm-risk-title,
+  .rm-risk-mitigation {
+    font-size: clamp(13px, 3vw, 18px);
+  }
+
+  .capital-card,
+  .milestone-item,
+  .toc-node,
+  .fund-tag {
+    width: 100%;
+  }
+
+  .leakage-legend {
+    flex-direction: column;
+    gap: 10px;
   }
 }

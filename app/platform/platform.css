@@ -91,9 +91,9 @@ body {
 
 .hero {
   background: #0B1A3D;
-  padding: 56px 40px 64px;
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px) clamp(40px, 6vw, 56px);
   position: relative;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .hero-grid {
@@ -102,7 +102,7 @@ body {
   opacity: .06;
   background-image: linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
   background-size: 40px 40px;
-  pointer-events: none
+  pointer-events: none;
 }
 
 .hero-tag {
@@ -115,29 +115,29 @@ body {
   padding: 4px 14px;
   font-size: 10px;
   color: #E8B45A;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .hero-dot {
   width: 6px;
   height: 6px;
   background: #C8922A;
-  border-radius: 50%
+  border-radius: 50%;
 }
 
 .hero-h1 {
-  font-size: 38px;
+  font-size: clamp(22px, 4vw, 38px);
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
   letter-spacing: -.02em;
   margin-bottom: 16px;
-  max-width: 580px
+  max-width: 580px;
 }
 
 .hero-h1 em {
   color: #C8922A;
-  font-style: normal
+  font-style: normal;
 }
 
 .hero-sub {
@@ -145,13 +145,13 @@ body {
   color: rgba(255, 255, 255, .6);
   line-height: 1.7;
   max-width: 480px;
-  margin-bottom: 28px
+  margin-bottom: 28px;
 }
 
 .hero-btns {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .btn-wf-gold {
@@ -164,7 +164,7 @@ body {
   display: inline-block;
   cursor: pointer;
   text-decoration: none;
-  border: none
+  border: none;
 }
 
 .btn-wf-outline {
@@ -177,77 +177,78 @@ body {
   border: 1px solid rgba(255, 255, 255, .25);
   display: inline-block;
   cursor: pointer;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .hero-stats {
   display: flex;
   gap: 24px;
   margin-top: 40px;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .hero-stat {
   border-left: 2px solid #C8922A;
   padding-left: 14px;
-  border-radius: 0
+  border-radius: 0;
 }
 
 .hs-num {
   font-size: 26px;
   font-weight: 700;
-  color: #fff
+  color: #fff;
 }
 
 .hs-label {
   font-size: 10px;
   color: rgba(255, 255, 255, 0.823);
-  margin-top: 2px
+  margin-top: 2px;
 }
 
 .sec {
-  padding: 100px 100px
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px);
 }
 
 .sec-alt {
-  background: #F7F8FA
+  background: #F7F8FA;
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px);
 }
 
 .sec-dark {
   background: #0B1A3D;
-  padding: 48px 40px
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px);
 }
 
 .sec-gold {
   background: #FAEEDA;
-  padding: 48px 40px
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 40px);
 }
 
 .eyebrow {
-  font-size: 36px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #C8922A;
-  margin-bottom: 8px
+  margin-bottom: 8px;
 }
 
 .sec-h2 {
-  font-size: 24px;
+  font-size: clamp(18px, 3vw, 26px);
   font-weight: 700;
   color: #0B1A3D;
   letter-spacing: -.01em;
   margin-bottom: 8px;
-  line-height: 1.25
+  line-height: 1.25;
 }
 
 .sec-h2-light {
-  font-size: 24px;
+  font-size: clamp(18px, 3vw, 26px);
   font-weight: 700;
   color: #fff;
   letter-spacing: -.01em;
   margin-bottom: 8px;
-  line-height: 1.25
+  line-height: 1.25;
 }
 
 .sec-sub {
@@ -255,8 +256,9 @@ body {
   color: #4A5568;
   line-height: 1.7;
   max-width: 520px;
-  margin-bottom: 28px
+  margin-bottom: 28px;
 }
+
 
 .sec-sub-light {
   font-size: 14px;
@@ -268,16 +270,16 @@ body {
 
 .grid-5 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
 }
 
 .h2 {
-  font-size: 20px;
+  font-size: clamp(18px, 3vw, 26px);
   font-weight: 700;
   color: #0B1A3D;
   margin-bottom: 6px;
-  line-height: 1.2
+  line-height: 1.2;
 }
 
 .sub {
@@ -285,7 +287,7 @@ body {
   color: #4A5568;
   line-height: 1.7;
   max-width: 500px;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 
@@ -335,9 +337,9 @@ body {
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 10px;
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .kpi-card {
@@ -412,8 +414,8 @@ body {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 24px
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 .footer-brand {
@@ -484,24 +486,10 @@ body {
 
 .crisis-grid1 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
 
-
-@media(max-width:600px) {
-
-  .crisis-grid1,
-  .kpi-grid,
-  .stake-grid,
-  .footer-grid {
-    grid-template-columns: 1fr 1fr
-  }
-
-  .sol-grid {
-    grid-template-columns: 1fr
-  }
-}
 
 
 
@@ -799,12 +787,14 @@ body {
 
 /* Bigger table text */
 
+.budget-magic { overflow-x: auto; }
+
 .budget-magic table td {
-  font-size: 15px;
+  font-size: clamp(10px, 1.5vw, 13px);
 }
 
 .budget-magic table th {
-  font-size: 14px;
+  font-size: clamp(10px, 1.5vw, 13px);
   text-transform: uppercase;
 }
 
@@ -1293,7 +1283,7 @@ h2.sr-only {
 }
 .pb-outcomes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 13px;
 }
 .pb-outcome {
@@ -1463,4 +1453,82 @@ h2.sr-only {
   .fa-tl-line { width: .5px; height: 24px; margin-top: 0; margin-left: 4px; }
   .fa-tl-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 13px; }
   .fa-tl-desc { max-width: 100%; }
+
+  .crisis-grid1,
+  .kpi-grid,
+  .grid-5,
+  .stake-grid,
+  .footer-grid,
+  .engines-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .sol-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero::before {
+    width: 420px;
+    height: 420px;
+    top: -120px;
+    right: -80px;
+  }
+
+  .hero::after {
+    width: 280px;
+    height: 280px;
+    bottom: -80px;
+    left: -80px;
+  }
+
+  .engine-wrap {
+    min-height: 260px;
+  }
+
+  .engine-front,
+  .engine-back {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .crisis-grid1,
+  .kpi-grid,
+  .grid-5,
+  .stake-grid,
+  .footer-grid,
+  .engines-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero::before {
+    width: 320px;
+    height: 320px;
+    top: -110px;
+    right: -70px;
+  }
+
+  .hero::after {
+    width: 240px;
+    height: 240px;
+    bottom: -70px;
+    left: -70px;
+  }
+
+  .footer-wf {
+    padding: clamp(20px, 6vw, 28px);
+  }
+
+  .cta-band {
+    padding: clamp(24px, 5vw, 32px);
+  }
+
+  .partner-pill {
+    font-size: 9px;
+    padding: 6px 12px;
+  }
+
+  .engine-wrap {
+    min-height: 240px;
+  }
 }
